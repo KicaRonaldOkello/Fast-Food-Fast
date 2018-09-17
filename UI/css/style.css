@@ -58,6 +58,7 @@ a{
 #signup{
 	text-align: center;
 	color: #c74000;
+	display: block;
 
 }
 #order{
@@ -107,6 +108,7 @@ form{
 	background-color: rgba(0,0,0,0.5);
 	margin: 50px;
 	border-radius: 10px;
+	color: white;
 }
 #end{
 	text-align: center;
