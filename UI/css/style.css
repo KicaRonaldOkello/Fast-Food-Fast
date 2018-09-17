@@ -58,6 +58,7 @@ a{
 #signup{
 	text-align: center;
 	color: #c74000;
+	display: block;
 
 }
 #order{
