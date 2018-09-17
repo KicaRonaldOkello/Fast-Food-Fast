@@ -37,14 +37,14 @@ input{
 ul{
 	list-style: none;
 	background-color: red;
-	padding: 20px;
-	display: flex;
+	padding: 20px
 	width: 100%;
 	color: white;
 }
 li{
 	text-align: center;
 	padding: 15px;
+	display: inline-block;
 }
 #nav{
 	
@@ -107,8 +107,34 @@ form{
 	background-color: rgba(0,0,0,0.5);
 	margin: 50px;
 	border-radius: 10px;
+	color: white;
 }
 #end{
 	text-align: center;
+}
+@media only screen and (max-width: 768px){
+	#flexible{
+		flex-direction: column;
+	}
+	input{
+		width: 100%;
+	}
+	form{
+		width: 100%;
+	}
+	li{
+		margin: 10px 1px;
+	}
+	ul li, li a{
+		text-align: center;
+		width: 100%;
+	}
+	
+	#order{
+		flex-direction: column;
+	}
+	img{
+		width: 100%;
+	}
 }
 
