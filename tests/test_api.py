@@ -28,3 +28,11 @@ class TestApi(unittest.TestCase):
         menu = Menu()
         self.assertEqual(len(menu.MENU), 1)
         self.assertEqual(response.status_code, 201)
+
+    def test_get_menu(self):
+        response = self.client.get("/api/v1/menu")
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_order(self):
+        response = self.client.get("/api/v1/orders")
+        self.assertEqual(response.status_code, 200)
