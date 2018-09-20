@@ -5,6 +5,7 @@ class Order():
     ORDER = []
     def add_orders(self, order):
         order["order_no"] = (len(self.ORDER) + 1)
+        order["order_status"] = "Pending"
         self.ORDER.append(order)
         return order
 
@@ -22,6 +23,12 @@ class Order():
                 food_name = ans.food_name(order["food"])
                 order["food"] = food_name
             return order
+
+    def update_order_status(self, orderId):
+        for status in self.ORDER:
+            if status["order_no"] == orderId:
+                status["order_status"] = "Accepted"
+            return status
 
 
 

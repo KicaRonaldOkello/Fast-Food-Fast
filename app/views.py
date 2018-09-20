@@ -34,7 +34,12 @@ def get_all_orders():
     order_list = orders.get_orders()
     return jsonify({'orders': order_list}), 200
 
-@app.route("/api/v1/orders/<orderId>")
+@app.route("/api/v1/orders/<orderId>", methods = ["GET"])
 def get_one_order(orderId):
     one_order = orders.get_an_order(orderId)
     return jsonify({"order": one_order}),200
+
+@app.route("/api/v1/orders/<orderId>", methods = ["PUT"])
+def update_order(orderId):
+    status = orders.update_order_status(orderId)
+    return jsonify({"order": status})
