@@ -10,7 +10,7 @@ def add_order():
     order = {
         "name": request.json["name"],
         "amount": request.json["amount"],
-        "food_id": request.json["food_id"]
+        "food": request.json["food"]
     }
     orders.add_orders(order)
     return make_response(jsonify({'order': order }), 201)
@@ -23,3 +23,13 @@ def add_menu():
     }
     menus.add_menu_item(menu)
     return jsonify({'menu': menu}), 201
+
+@app.route("/api/v1/menu", methods = ["GET"])
+def get_all_menu():
+    menu_items = menus.get_menu()
+    return jsonify({'menu': menu_items}), 200
+
+@app.route("/api/v1/orders", methods = ["GET"])
+def get_all_orders():
+    order_list = orders.get_orders()
+    return jsonify({'orders': order_list})
