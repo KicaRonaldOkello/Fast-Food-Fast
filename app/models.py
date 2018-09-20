@@ -15,6 +15,15 @@ class Order():
             food["food"] = food_names
         return self.ORDER
 
+    def get_an_order(self, orderId):
+        ans = Menu()
+        for order in self.ORDER:
+            if order["order_no"] == orderId:
+                food_name = ans.food_name(order["food"])
+                order["food"] = food_name
+            return order
+
+
 
 
         
