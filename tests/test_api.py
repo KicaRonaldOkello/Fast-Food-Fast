@@ -13,7 +13,7 @@ class TestApi(unittest.TestCase):
             'id': 1,
             'name': 'matooke',
             'amount': '15,000',
-            'food_id': 2
+            'food': 2
         }
         response = self.client.post("/api/v1/orders", data = json.dumps(order), content_type = 'application/json')
         self.assertEqual(response.status_code, 201)
@@ -35,4 +35,8 @@ class TestApi(unittest.TestCase):
 
     def test_get_order(self):
         response = self.client.get("/api/v1/orders")
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_an_order(self):
+        response = self.client.get("/api/v1/orders/1")
         self.assertEqual(response.status_code, 200)

@@ -32,4 +32,9 @@ def get_all_menu():
 @app.route("/api/v1/orders", methods = ["GET"])
 def get_all_orders():
     order_list = orders.get_orders()
-    return jsonify({'orders': order_list})
+    return jsonify({'orders': order_list}), 200
+
+@app.route("/api/v1/orders/<orderId>")
+def get_one_order(orderId):
+    one_order = orders.get_an_order(orderId)
+    return jsonify({"order": one_order}),200
