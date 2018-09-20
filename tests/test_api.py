@@ -1,7 +1,7 @@
 import unittest
 from app import app
 from app import views
-from app.models import Menu
+from app.models import Menu, Order
 import json
 
 class TestApi(unittest.TestCase):
@@ -13,7 +13,8 @@ class TestApi(unittest.TestCase):
             'id': 1,
             'name': 'matooke',
             'amount': '15,000',
-            'food': 2
+            'food': 2,
+            'order_status': 'Pending'
         }
         response = self.client.post("/api/v1/orders", data = json.dumps(order), content_type = 'application/json')
         self.assertEqual(response.status_code, 201)
@@ -40,3 +41,21 @@ class TestApi(unittest.TestCase):
     def test_get_an_order(self):
         response = self.client.get("/api/v1/orders/1")
         self.assertEqual(response.status_code, 200)
+
+    def test_update_order(self):
+        a = Order()
+        for status in a.ORDER:
+            self.assertEqual(status["order_status"], "Pending")
+        else:
+            return False
+
+        order = {
+            'id': 1,
+            'name': 'matooke',
+            'amount': '15,000',
+            'food': 2,
+            'order_status': 'Accepted'
+        }
+        response = self.client.put("api/v1/orders/1", data = json.dumps(order), content_type = 'application/json')
+        self.assertEqual(response.status_code, 200)
+
