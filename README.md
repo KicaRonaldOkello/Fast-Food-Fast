@@ -18,15 +18,15 @@ These instructions will get you a copy of the project up and running on your loc
 
 
 # Installing.
-- Create a directory called StackOverflow-lite.
+- Create a directory called Fast-Food-Fast.
 
-    `mkdir StackOverflow-lite`
+    `mkdir Fast-Food-Fast`
 - Enter the directory.
 
-    `cd StackOverflow-lite`
+    `cd Fast-Food-Fast`
 - Clone the project from github using:
 
-     git clone http://www.github.com/KicaRonaldOkello/StackoOverflow-lite/tree/api
+     git clone http://www.github.com/KicaRonaldOkello/Fast-Food-Fast/tree/api
 - Install virtualenvironment.
 
     `pip install virtualenv`
@@ -46,20 +46,20 @@ These instructions will get you a copy of the project up and running on your loc
  
    | Method | Endpoint | Status Code |
    |--------|----------|-------------|
-   | GET | "/api/v1/questions" | 200 |
-   | GET | "/api/v1/questions/<questionId>" | 200 |
-   | POST | "/api/v1/questions" | 201 |
-   | POST | "/api/v1/questions/<questionId>/answers" |201 |
+   | GET | "/api/v1/orders" | 200 |
+   | GET | "/api/v1/orders/<orderId>" | 200 |
+   | POST | "/api/v1/orders" | 201 |
+   | PUT | "/api/v1/orders/<orderId>" |201 |
     
   
  - Open Postman, choose any of the methods from the table and enter its approopiate end point.
  - After clicking send, Postman should return the corresponding status code.
   
  # Features.
- - users can post questions.
- - Users can get all questions.
- - Users can get one question.
- - Users can add an answer.
+ - users can post orders.
+ - Users can get all orders.
+ - Users can get one order.
+ - Users can update order status.
   
   # Running unittests.
   In order to know whether our endpoints are working, we can run unittests.
