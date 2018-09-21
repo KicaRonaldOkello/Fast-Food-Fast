@@ -8,6 +8,9 @@ You can acess it at:
    [![Maintainability](https://api.codeclimate.com/v1/badges/153f76beb7e25267ced5/maintainability)](https://codeclimate.com/github/KicaRonaldOkello/Fast-Food-Fast/maintainability)
    [![Coverage Status](https://coveralls.io/repos/github/KicaRonaldOkello/Fast-Food-Fast/badge.svg?branch=api)](https://coveralls.io/github/KicaRonaldOkello/Fast-Food-Fast?branch=api)
    
+  Heroku link:
+    https://fast-food-fas.herokuapp.com
+   
    
 # Getting Started.
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
