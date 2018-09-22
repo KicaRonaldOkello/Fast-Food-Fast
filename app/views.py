@@ -26,11 +26,16 @@ def add_menu():
 
 @app.route("/api/v1/menu", methods = ["GET"])
 def get_all_menu():
-    menu_items = menus.get_menu()
-    return jsonify({'menu': menu_items}), 200
+    if menus.MENU == []:
+        return jsonify({"menu": "no menu items"}), 204
+    else:
+        menu_items = menus.get_menu()
+        return jsonify({'menu': menu_items}), 200
 
 @app.route("/api/v1/orders", methods = ["GET"])
 def get_all_orders():
+    if orders.ORDER == []:
+        return jsonify({"order": "no orders"}), 204
     order_list = orders.get_orders()
     return jsonify({'orders': order_list}), 200
 
