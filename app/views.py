@@ -48,12 +48,16 @@ def get_all_orders():
     order_list = orders.get_orders()
     return jsonify({'orders': order_list}), 200
 
-@app.route("/api/v1/orders/<orderId>", methods = ["GET"])
+@app.route("/api/v1/orders/<int:orderId>", methods = ["GET"])
 def get_one_order(orderId):
-    one_order = orders.get_an_order(orderId)
-    return jsonify({"order": one_order}),200
+    if isinstance(orderId,int):
+        one_order = orders.get_an_order(orderId)
+        return jsonify({"order": one_order}),200
+    else:
+        return jsonify({"Error": "Please input correct order id"}), 400
 
 @app.route("/api/v1/orders/<orderId>", methods = ["PUT"])
 def update_order(orderId):
     updated = orders.update_order_status(orderId)
     return jsonify({"order": updated}), 201
+
