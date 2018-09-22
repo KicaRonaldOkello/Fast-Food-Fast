@@ -32,3 +32,28 @@ def add_menu():
         return jsonify({'menu': menu}), 201
     else:
         return jsonify({"Error": "Menu item already exists"}), 409
+
+@app.route("/api/v1/menu", methods = ["GET"])
+def get_all_menu():
+    if menus.MENU == []:
+        return jsonify({"menu": "no menu items"}), 204
+    else:
+        menu_items = menus.get_menu()
+        return jsonify({'menu': menu_items}), 200
+
+@app.route("/api/v1/orders", methods = ["GET"])
+def get_all_orders():
+    if orders.ORDER == []:
+        return jsonify({"order": "no orders"}), 204
+    order_list = orders.get_orders()
+    return jsonify({'orders': order_list}), 200
+
+@app.route("/api/v1/orders/<orderId>", methods = ["GET"])
+def get_one_order(orderId):
+    one_order = orders.get_an_order(orderId)
+    return jsonify({"order": one_order}),200
+
+@app.route("/api/v1/orders/<orderId>", methods = ["PUT"])
+def update_order(orderId):
+    updated = orders.update_order_status(orderId)
+    return jsonify({"order": updated}), 201
