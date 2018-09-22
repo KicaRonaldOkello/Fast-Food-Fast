@@ -41,5 +41,5 @@ def get_one_order(orderId):
 
 @app.route("/api/v1/orders/<orderId>", methods = ["PUT"])
 def update_order(orderId):
-    status = orders.update_order_status(orderId)
-    return jsonify({"order": status})
+    updated = orders.update_order_status(orderId)
+    return jsonify({"order": updated}), 201
