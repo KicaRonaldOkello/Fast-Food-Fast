@@ -31,16 +31,18 @@ class Order(Menu):
             if isinstance(food["food"], int):
                 food_names = self.food_name(food["food"])
                 food["food"] = food_names
-                return ORDERS
-            else:
-                return ORDERS
+        return ORDERS    
+
 
     def get_an_order(self, orderId):
-        for order in self.ORDER:
-            if order["order_no"] == orderId:
-                food_name = self.food_name(order["food"])
-                order["food"] = food_name
-            return order
+        ORDERS = self.ORDER[:]
+        one_order = [order for order in ORDERS if order["order_no"] == orderId]
+        if isinstance(one_order[0]["food"], int):
+            food_name = self.food_name(one_order[0]["food"])
+            one_order[0]["food"] = food_name
+            return one_order
+        else:
+            return one_order
 
     def update_order_status(self, orderId, order_status):
         update_order = [status for status in self.ORDER if status["order_no"] == orderId]
@@ -49,6 +51,8 @@ class Order(Menu):
             return update_order
         else:
             return "does not exist"
+
+    
 
 
 
