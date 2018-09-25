@@ -14,6 +14,7 @@ def add_order():
     }
     if order["name"] == "" or order["amount"] == "" or order["food"] == "":
         return jsonify({"Error": "Incomplete order"}), 400
+        
     else:
         orders.add_orders(order)
         return jsonify({'order': order }), 201

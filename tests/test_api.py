@@ -111,3 +111,40 @@ class TestApi(unittest.TestCase):
     def test_wrong_orderId(self):
         response = self.client.get("/api/v1/orders/a")
         self.assertEqual(response.status_code, 400)
+
+    def test_missing_input_field_in_orders(self):
+        order = {
+            "amount": 2,
+            "food": 1
+        }
+        response = self.client.post("/api/v1/orders", data = json.dumps(order), content_type = 'application/json')
+        self.assertEqual(response.status_code, 400)
+
+    def test_missing_input_field_in_menu(self):
+        menu = {
+            "name": "chicken"
+        }
+        response = self.client.post("/api/v1/menu", data = json.dumps(menu), content_type = 'application/json')
+        self.assertEqual(response.status_code, 400)
+
+    def test_strip_trailing_spaces_from_orders_posted(self):
+        order = {
+            "name": "    jon doe  ",
+            "amount": "     4   ",
+            "food": 3
+        }
+        post_order = Order()
+        response = self.client.post("/api/v1/orders", data = json.dumps(order), content_type = 'application/json')
+        self.assertEqual(post_order.ORDER[2]["name"], "jon doe")
+        self.assertEqual(post_order.ORDER[2]["amount"], "4")
+        self.assertEqual(post_order.ORDER[2]["food"], 3)
+    
+    def test_strip_trailing_spaces_from_menu_posted(self):
+        menu = {
+            "name": "     rice     ",
+            "price":     3000
+        }
+        response = self.client.post("/api/v1/menu", data = json.dumps(menu), content_type = 'application/json')
+        menu = Menu()
+        self.assertEqual(menu.MENU[1]["name"], "rice")
+        self.assertEqual(menu.MENU[1]["price"], 3000)
