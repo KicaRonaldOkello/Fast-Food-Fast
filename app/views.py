@@ -7,32 +7,47 @@ menus = Menu()
 
 @app.route("/api/v1/orders", methods=["POST"])
 def add_order():
-    order = {
+    if request.json.get("name") != None and request.json.get("amount") != None and request.json.get("food") != None:
+        order = {
         "name": request.json["name"],
         "amount": request.json["amount"],
         "food": request.json["food"]
-    }
-    if order["name"] == "" or order["amount"] == "" or order["food"] == "":
-        return jsonify({"Error": "Incomplete order"}), 400
+        }
+        if order["name"] == "" or order["amount"] == "" or order["food"] == "":
+            return jsonify({"Error": "Incomplete order"}), 400
         
+        else:
+            for k,v in order.items():
+                if isinstance(order[k], str):
+                    order[k] = v.strip()
+                
+            orders.add_orders(order)
+            return jsonify({'order': order }), 201
     else:
-        orders.add_orders(order)
-        return jsonify({'order': order }), 201
+        return jsonify({"Error": "Missing field"}), 400  
+    
 
 @app.route("/api/v1/menu", methods = ["POST"])
 def add_menu():
-    menu = {
-        "name": request.json["name"],
-        "price": request.json["price"]
-    }
-    duplicate = [item for item in menus.MENU if item["name"] == menu["name"]]
-    if menu["name"] == "" or menu["price"] == "":
-        return jsonify({"Error": "Incomplete menun item"}), 400
-    if not duplicate:
-        menus.add_menu_item(menu)
-        return jsonify({'menu': menu}), 201
-    else:
-        return jsonify({"Error": "Menu item already exists"}), 409
+    if request.json.get("name") != None and request.json.get("price") != None:
+        menu = {
+            "name": request.json["name"],
+            "price": request.json["price"]
+        }
+        duplicate = [item for item in menus.MENU if item["name"] == menu["name"]]
+        if menu["name"] == "" or menu["price"] == "":
+            return jsonify({"Error": "Incomplete menun item"}), 400
+        if not duplicate:
+            for k,v in menu.items():
+                if isinstance(menu[k], str):
+                    menu[k] = v.strip()
+
+            menus.add_menu_item(menu)
+            return jsonify({'menu': menu}), 201
+        else:
+            return jsonify({"Error": "Menu item already exists"}), 409
+
+    return jsonify({"Error": "Missing input field"}), 400
 
 @app.route("/api/v1/menu", methods = ["GET"])
 def get_all_menu():

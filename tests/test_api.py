@@ -69,11 +69,14 @@ class TestApi(unittest.TestCase):
         status = {
             "status": "Accepted"
         }
+       
         order = Order()
         old_order = order.get_an_order(1)
         self.assertEqual(old_order[0]["order_status"], "Pending")
-        new_order = order.update_order_status(1, status)
+        response = self.client.put("/api/v1/orders/1", data = json.dumps(status), content_type = 'application/json')
+        new_order = order.get_an_order(1)
         self.assertEqual(new_order[0]["order_status"], "Accepted")
+        self.assertEqual(response.status_code, 201)
 
     def test_if_empty_order_posted(self):
         order = {
@@ -110,19 +113,19 @@ class TestApi(unittest.TestCase):
 
     def test_wrong_orderId(self):
         response = self.client.get("/api/v1/orders/a")
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 405)
 
     def test_missing_input_field_in_orders(self):
         order = {
-            "amount": 2,
-            "food": 1
+           "amount": 2,
+           "food": 1
         }
         response = self.client.post("/api/v1/orders", data = json.dumps(order), content_type = 'application/json')
         self.assertEqual(response.status_code, 400)
 
     def test_missing_input_field_in_menu(self):
         menu = {
-            "name": "chicken"
+           "name": "chicken"
         }
         response = self.client.post("/api/v1/menu", data = json.dumps(menu), content_type = 'application/json')
         self.assertEqual(response.status_code, 400)

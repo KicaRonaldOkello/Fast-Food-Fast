@@ -4,9 +4,6 @@ from flask import jsonify
 class Menu:
     MENU = []
     def add_menu_item(self, menu):
-        for k,v in menu.items():
-            k["name"] = v.strip()
-
         menu["food_id"] = (len(self.MENU) + 1)
         self.MENU.append(menu)
         return menu
@@ -23,6 +20,7 @@ class Order(Menu):
     
     ORDER = []
     def add_orders(self, order):
+        
         order["order_no"] = (len(self.ORDER) + 1)
         order["order_status"] = "Pending"
         self.ORDER.append(order)
