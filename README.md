@@ -50,9 +50,9 @@ These instructions will get you a copy of the project up and running on your loc
    | Method | Endpoint | Status Code |
    |--------|----------|-------------|
    | GET | "/api/v1/orders" | 200 |
-   | GET | "/api/v1/orders/<orderId>" | 200 |
+   | GET | "/api/v1/orders/\<orderId>\" | 200 |
    | POST | "/api/v1/orders" | 201 |
-   | PUT | "/api/v1/orders/<orderId>" |201 |
+   | PUT | "/api/v1/orders/\<orderId>\" |201 |
     
   
  - Open Postman, choose any of the methods from the table and enter its approopiate end point.
