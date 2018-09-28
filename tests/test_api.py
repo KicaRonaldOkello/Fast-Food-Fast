@@ -11,13 +11,13 @@ class TestApi(unittest.TestCase):
     def test_add_order(self):
         order = {
             "name": "ronald",
-            "amount": 2,
-            "food": 1
+            "amount": "2",
+            "food": "1"
         }
         post_order = Order()
         response = self.client.post("/api/v1/orders", data = json.dumps(order), content_type = 'application/json')
         self.assertEqual(post_order.ORDER[0]["name"], "ronald")
-        self.assertEqual(post_order.ORDER[0]["amount"], 2)
+        self.assertEqual(post_order.ORDER[0]["amount"], "2")
         self.assertEqual(post_order.ORDER[0]["food"], 1)
         self.assertEqual(response.status_code, 201)
 
@@ -45,8 +45,8 @@ class TestApi(unittest.TestCase):
     def test_get_order(self):
         order = {
             "name": "ron",
-            "amount": 3,
-            "food": 1
+            "amount": "3",
+            "food": "1"
         }
         response = self.client.post("/api/v1/orders", data = json.dumps(order), content_type = 'application/json')
         order = Order()
@@ -113,12 +113,12 @@ class TestApi(unittest.TestCase):
 
     def test_wrong_orderId(self):
         response = self.client.get("/api/v1/orders/a")
-        self.assertEqual(response.status_code, 405)
+        self.assertEqual(response.status_code, 400)
 
     def test_missing_input_field_in_orders(self):
         order = {
-           "amount": 2,
-           "food": 1
+           "amount": "2",
+           "food": "1"
         }
         response = self.client.post("/api/v1/orders", data = json.dumps(order), content_type = 'application/json')
         self.assertEqual(response.status_code, 400)
@@ -134,7 +134,7 @@ class TestApi(unittest.TestCase):
         order = {
             "name": "    jon doe  ",
             "amount": "     4   ",
-            "food": 3
+            "food": "3"
         }
         post_order = Order()
         response = self.client.post("/api/v1/orders", data = json.dumps(order), content_type = 'application/json')
