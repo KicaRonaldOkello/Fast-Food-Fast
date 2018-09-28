@@ -9,7 +9,7 @@ You can acess it at:
    [![Coverage Status](https://coveralls.io/repos/github/KicaRonaldOkello/Fast-Food-Fast/badge.svg?branch=api)](https://coveralls.io/github/KicaRonaldOkello/Fast-Food-Fast?branch=api)
    
   Heroku link:
-    https://fast-food-fas.herokuapp.com
+    https://fast-food-fas.herokuapp.com/api/v1/orders
    
    
 # Getting Started.
@@ -50,9 +50,9 @@ These instructions will get you a copy of the project up and running on your loc
    | Method | Endpoint | Status Code |
    |--------|----------|-------------|
    | GET | "/api/v1/orders" | 200 |
-   | GET | "/api/v1/orders/<orderId>" | 200 |
+   | GET | "/api/v1/orders/\<orderId>\" | 200 |
    | POST | "/api/v1/orders" | 201 |
-   | PUT | "/api/v1/orders/<orderId>" |201 |
+   | PUT | "/api/v1/orders/\<orderId>\" |201 |
     
   
  - Open Postman, choose any of the methods from the table and enter its approopiate end point.
