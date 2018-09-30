@@ -1,66 +1,39 @@
 """Handles how to store and retrieve data."""
-#from app import app
+from app import app
+import psycopg2
 
-class Menu:
-    """Class to handle all actions on menu object."""
-    MENU = []
-    def add_menu_item(self, menu):
-        """Method to add items to menu list."""
-        menu["food_id"] = (len(self.MENU) + 1)
-        self.MENU.append(menu)
-        return menu
+class Database:
+    def __init__(self):
+        self.conn = psycopg2.connect("dbname=FastFoodFast user=postgres password=password host=localhost")
+        self.conn.autocommit = True
+        self.cur = self.conn.cursor()
+        print("Connected to the database")
 
-    def get_menu(self):
-        """Returns all items in the menu list."""
-        return self.MENU
+    def create_user_table(self):
+        user_table = ("CREATE TABLE IF NOT EXISTS users"
+                    "(user_id serial  NOT NULL PRIMARY KEY,"
+                    "name VARCHAR(50) NOT NULL,"
+                    "username VARCHAR(50) UNIQUE NOT NULL,"
+                    "email VARCHAR(80) UNIQUE NOT NULL,"
+                    "password VARCHAR(200) NOT NULL)")
 
-    def food_name(self, ids):
-        """Returns food name after taking its id."""
-        for food_id in self.MENU:
-            if food_id["food_id"] == ids:
-                return food_id["name"]
+        self.cur.execute(user_table)
 
-class Order(Menu):
-    """Handles all actions of ordering."""
-    ORDER = []
-    def add_orders(self, order):
-        """Adds orders to the order list."""
-        order["order_no"] = (len(self.ORDER) + 1)
-        order["order_status"] = "Pending"
-        for k, v in order.items():
-            if k == "food":
-                order[k] = int(v)
-        self.ORDER.append(order)
-        return order
+    def create_menu_table(self):
+        menu_table = ("CREATE TABLE IF NOT EXISTS menu"
+                        "(menu_id serial NOT NULL PRIMARY KEY,"
+                        "food_name VARCHAR(60) UNIQUE NOT NULL,"
+                        "price INTEGER NOT NULL)")
+        self.cur.execute(menu_table)
 
-    def get_orders(self):
-        """Returns all orders in the order list."""
-        ORDERS = self.ORDER[:]
-        for food in ORDERS:
-            if isinstance(food["food"], int):
-                food_names = self.food_name(food["food"])
-                food["food"] = food_names
-        return ORDERS  
+    def create_orders_table(self):
+        orders_table = ("CREATE TABLE IF NOT EXISTS orders"
+                        "(order_id serial  NOT NULL PRIMARY KEY,"
+                        "amount INTEGER NOT NULL,"
+                        "time TIMESTAMP NOT NULL,"
+                        "order_status VARCHAR(11) NOT NULL,"
+                        "user_id INTEGER, FOREIGN KEY (user_id) REFERENCES users(user_id),"
+                        "menu_id INTEGER, FOREIGN KEY (menu_id) REFERENCES menu(menu_id))")
+        self.cur.execute(orders_table)
 
-    def get_an_order(self, orderId):
-        """Returns a specific order from the order list."""
-        ORDERS = self.ORDER[:]
-        one_order = [order for order in ORDERS if order["order_no"] == orderId]
-        if isinstance(one_order[0]["food"], int):
-            food_name = self.food_name(one_order[0]["food"])
-            one_order[0]["food"] = food_name
-        return one_order
-
-    def get_length(self, orderId):
-        one_order = [order for order in self.ORDER if order["order_no"] == orderId]
-        return one_order
-
-    def update_order_status(self, orderId, order_status):
-        """Updates the status of an order."""
-        update_order = [status for status in self.ORDER if status["order_no"] == orderId]
-        if update_order:
-            update_order[0]["order_status"] = order_status
-            return update_order
-        else:
-            return "does not exist"
 
