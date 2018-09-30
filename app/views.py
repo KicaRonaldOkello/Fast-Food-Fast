@@ -2,41 +2,41 @@
 from app import app
 from flask import request, jsonify, make_response
 from app.models import Order, Menu
+from app.validators import Validators
 import re
 
 orders = Order()
 menus = Menu()
+validator = Validators()
 
 @app.route("/api/v1/orders", methods=["POST"])
 def add_order():
     """Implements the add order api."""
-    if request.json.get(
-            "name") == None or request.json.get("amount") == None or request.json.get("food") == None:
-            return jsonify({"Error": "Missing field"}), 400
+    missing_field = validator.validate_post_missing(request.json)
+    if missing_field:
+        return jsonify({"Error": "Missing field"}), 400
     order = {
         "name": request.json["name"],
         "amount": request.json["amount"],
         "food": request.json["food"]
     }
-    if order["name"].isspace() or order["amount"].isspace() or order["food"].isspace():
+    empty_space = validator.validate_empty_space(order)
+    if empty_space:
         return jsonify({"Error": "Incomplete order"}), 400
 
-    match_name = re.compile(r"^[a-zA-Z0-9 ]+$")
-    match_amount = re.compile(r"[0-9]+")
-    if not match_name.search(order["name"]) or not match_amount.search(
-        order["amount"]) or not match_amount.search(order["food"]):
+    inputs = validator.validate_input(order)
+    if inputs:
         return jsonify({"error": "One or all of the keys is taking invlaid input"}), 400
     else:
-        for k, v in order.items():
-            if isinstance(order[k], str):
-                order[k] = v.strip()   
-        orders.add_orders(order)
+        strip = validator.strip_input(order)
+        orders.add_orders(strip)
         return jsonify({'order': order}), 201
 
 @app.route("/api/v1/menu", methods=["POST"])
 def add_menu():
     """Implements the add menu api."""
-    if request.json.get("name") == None or request.json.get("price") == None:
+    validate_missing = validator.validate_missing_menu(request.json)
+    if validate_missing:
         return jsonify({"Error": "Missing input field"}), 400
     menu = {
         "name": request.json["name"],
@@ -46,11 +46,8 @@ def add_menu():
     if menu["name"] == "" or menu["price"] == "":
         return jsonify({"Error": "Incomplete menun item"}), 400
     if not duplicate:
-        for k, v in menu.items():
-            if isinstance(menu[k], str):
-                menu[k] = v.strip()
-
-        menus.add_menu_item(menu)
+        strip = validator.strip_input(menu)
+        menus.add_menu_item(strip)
         return jsonify({'menu': menu}), 201
     else:
         return jsonify({"Error": "Menu item already exists"}), 409
