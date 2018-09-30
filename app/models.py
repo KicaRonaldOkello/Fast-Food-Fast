@@ -1,15 +1,17 @@
-"""Handles how to store and retrieve data."""
+"""Connects to database and creates tables."""
 from app import app
 import psycopg2
 
 class Database:
     def __init__(self):
+        """Connect to the database."""
         self.conn = psycopg2.connect("dbname=FastFoodFast user=postgres password=password host=localhost")
         self.conn.autocommit = True
         self.cur = self.conn.cursor()
         print("Connected to the database")
 
     def create_user_table(self):
+        """Create table to store users data."""
         user_table = ("CREATE TABLE IF NOT EXISTS users"
                     "(user_id serial  NOT NULL PRIMARY KEY,"
                     "name VARCHAR(50) NOT NULL,"
@@ -20,6 +22,7 @@ class Database:
         self.cur.execute(user_table)
 
     def create_menu_table(self):
+        """Create table to store menu items."""
         menu_table = ("CREATE TABLE IF NOT EXISTS menu"
                         "(menu_id serial NOT NULL PRIMARY KEY,"
                         "food_name VARCHAR(60) UNIQUE NOT NULL,"
@@ -27,6 +30,7 @@ class Database:
         self.cur.execute(menu_table)
 
     def create_orders_table(self):
+        """Create table to store orders."""
         orders_table = ("CREATE TABLE IF NOT EXISTS orders"
                         "(order_id serial  NOT NULL PRIMARY KEY,"
                         "amount INTEGER NOT NULL,"
