@@ -20,7 +20,8 @@ class Database:
                     "name VARCHAR(50) NOT NULL,"
                     "username VARCHAR(50) UNIQUE NOT NULL,"
                     "email VARCHAR(80) UNIQUE NOT NULL,"
-                    "password VARCHAR(200) NOT NULL)")
+                    "password VARCHAR(200) NOT NULL,"
+                    "role BOOLEAN NOT NULL)")
 
         self.cur.execute(user_table)
 

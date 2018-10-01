@@ -3,10 +3,12 @@ from app import app
 from flask import request, jsonify, make_response
 from app.models import Database
 from app.validators import Validators
-from app.dboperations import Order,Menu
+from app.dboperations import Order,Menu,Users
+
 
 orders = Order()
 menus = Menu()
+user = Users()
 db=Database()
 db.create_menu_table()
 db.create_user_table()
@@ -98,7 +100,7 @@ def update_order(orderId):
     key_input = validator.return_key(order_status)
     if not key_input:
         return jsonify({"Error": "Wrong key word"}), 400
-        
+
     one_order = orders.get_length(int(orderId))
     if one_order:
         
@@ -106,4 +108,35 @@ def update_order(orderId):
         return jsonify({"order": updated}), 201
     else:
         return jsonify({"Error": "Order does not exist"}), 404
+
+@app.route("/api/v1/auth/signup", methods=["POST"])
+def create_account():
+    validate_missing = validator.validate_missing_account(request.json)
+    if validate_missing:
+        return jsonify({"Error": "Missing input field"}), 400
+    account = {
+        "name": request.json["name"],
+        "username": request.json["username"],
+        "email": request.json["email"],
+        "password": request.json["password"]
+    }
+    empty_space = validator.validate_empty_space(account)
+    if empty_space:
+        return jsonify({"Error": "Incomplete order"}), 400
+
+    inputs = validator.validate_account_input(account)
+    if inputs:
+        return jsonify({"error": "One or all of the keys is taking invlaid input"}), 400
+
+    strip = validator.strip_input(account)
+
+    check_for_username = user.check_username(strip)
+
+    if not check_for_username:
+        new_account = user.add_user(strip)
+        return jsonify({'account': new_account}), 201
+    else:
+        return jsonify({"Error": "Account already exists"}), 409
+
+    
 
