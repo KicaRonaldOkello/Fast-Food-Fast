@@ -4,7 +4,7 @@ from flask import request, jsonify, make_response
 from app.models import Database
 from app.validators import Validators
 from app.dboperations import Order,Menu,Users
-
+from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, get_jwt_identity)
 
 orders = Order()
 menus = Menu()
@@ -39,6 +39,7 @@ def add_order():
         return jsonify({'order': order}), 201
 
 @app.route("/api/v1/menu", methods=["POST"])
+@jwt_required
 def add_menu():
     """Implements the add menu api."""
     validate_missing = validator.validate_missing_menu(request.json)
@@ -71,12 +72,14 @@ def get_all_menu():
     return jsonify({'menu': menu_items}), 200
 
 @app.route("/api/v1/orders", methods=["GET"])
+@jwt_required
 def get_all_orders():
     """Implements the get orders api."""
     order_list = orders.get_orders()
     return jsonify({'orders': order_list}), 200
 
 @app.route("/api/v1/orders/<orderId>", methods=["GET"])
+@jwt_required
 def get_one_order(orderId):
     """Implements api to get a specific order."""
     if  not orderId.isdigit():
@@ -84,6 +87,7 @@ def get_one_order(orderId):
 
     one_order = orders.get_length(int(orderId))
     if one_order:
+        current_user = get_jwt_identity()
         one_order = orders.get_an_order(int(orderId))
         return jsonify({"order": one_order}), 200
 
@@ -91,6 +95,7 @@ def get_one_order(orderId):
         return jsonify({"Error": "Order does not exist"}), 404 
 
 @app.route("/api/v1/orders/<orderId>", methods=["PUT"])
+@jwt_required
 def update_order(orderId):
     """Implements api that changes order status."""
     order_status = request.json["status"]
@@ -134,9 +139,41 @@ def create_account():
 
     if not check_for_username:
         new_account = user.add_user(strip)
-        return jsonify({'account': new_account}), 201
+        access_token = create_access_token(identity=strip["username"])
+        return jsonify(access_token=access_token),201
     else:
         return jsonify({"Error": "Account already exists"}), 409
+
+@app.route("/api/v1/auth/login", methods=["POST"])
+def login():
+    validate_missing = validator.validate_missing_login(request.json)
+    if validate_missing:
+        return jsonify({"Error": "Missing input field"}), 400
+    login = {
+        "username": request.json["username"],
+        "password": request.json["password"]
+    }
+    empty_space = validator.validate_empty_space(login)
+    if empty_space:
+        return jsonify({"Error": "Incomplete order"}), 400
+    
+    inputs = validator.validate_login_input(login)
+    if inputs:
+        return jsonify({"error": "Username is taking invlaid input"}), 400
+
+    strip = validator.strip_input(login)
+
+    check_for_username = user.check_username(strip)
+    check_for_password = validator.unhash_password(check_for_username,login)
+
+    if check_for_username and check_for_password:
+        access_token = create_access_token(identity=login["username"])
+        return jsonify(access_token=access_token),200
+        
+
+    else:
+        return jsonify({"Error":"Please input correct username or password"}), 401
+
 
     
 
