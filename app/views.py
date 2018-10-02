@@ -16,6 +16,7 @@ db.create_orders_table()
 validator = Validators()
 
 @app.route("/api/v1/orders", methods=["POST"])
+@jwt_required
 def add_order():
     """Implements the add order api."""
     missing_field = validator.validate_post_missing(request.json)
@@ -42,6 +43,10 @@ def add_order():
 @jwt_required
 def add_menu():
     """Implements the add menu api."""
+    current_user = get_jwt_identity()
+    if not current_user["role"] == "admin":
+        return jsonify({"Error":"Unauthorised access"}), 401
+
     validate_missing = validator.validate_missing_menu(request.json)
     if validate_missing:
         return jsonify({"Error": "Missing input field"}), 400
@@ -75,6 +80,10 @@ def get_all_menu():
 @jwt_required
 def get_all_orders():
     """Implements the get orders api."""
+    current_user = get_jwt_identity()
+    if not current_user["role"] == "admin":
+        return jsonify({"Error":"Unauthorised access"}), 401
+        
     order_list = orders.get_orders()
     return jsonify({'orders': order_list}), 200
 
@@ -82,12 +91,15 @@ def get_all_orders():
 @jwt_required
 def get_one_order(orderId):
     """Implements api to get a specific order."""
+    current_user = get_jwt_identity()
+    if not current_user["role"] == "admin":
+        return jsonify({"Error":"Unauthorised access"}), 401
+
     if  not orderId.isdigit():
         return jsonify({"Error": "Please input correct order id"}), 400
 
     one_order = orders.get_length(int(orderId))
     if one_order:
-        current_user = get_jwt_identity()
         one_order = orders.get_an_order(int(orderId))
         return jsonify({"order": one_order}), 200
 
@@ -98,6 +110,10 @@ def get_one_order(orderId):
 @jwt_required
 def update_order(orderId):
     """Implements api that changes order status."""
+    current_user = get_jwt_identity()
+    if not current_user["role"] == "admin":
+        return jsonify({"Error":"Unauthorised access"}), 401
+
     order_status = request.json["status"]
     if  not orderId.isdigit():
         return jsonify({"Error": "Please input correct order id"}), 400
@@ -167,12 +183,14 @@ def login():
     check_for_password = validator.unhash_password(check_for_username,login)
 
     if check_for_username and check_for_password:
-        access_token = create_access_token(identity=login["username"])
+        access_token = create_access_token(identity=check_for_username)
         return jsonify(access_token=access_token),200
         
 
     else:
         return jsonify({"Error":"Please input correct username or password"}), 401
+
+
 
 
     

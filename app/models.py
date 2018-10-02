@@ -21,7 +21,7 @@ class Database:
                     "username VARCHAR(50) UNIQUE NOT NULL,"
                     "email VARCHAR(80) UNIQUE NOT NULL,"
                     "password VARCHAR(200) NOT NULL,"
-                    "role BOOLEAN NOT NULL)")
+                    "role VARCHAR(10) NOT NULL)")
 
         self.cur.execute(user_table)
 
@@ -45,3 +45,4 @@ class Database:
         self.cur.execute(orders_table)
 
 
+1

@@ -74,7 +74,7 @@ class Order(Menu):
 
 class Users:
     def check_username(self, account):
-        command = "SELECT username,password from users WHERE username= '{}'".format(account["username"])
+        command = "SELECT username,password,role from users WHERE username= '{}'".format(account["username"])
         dictcur.execute(command)
         data = dictcur.fetchone()
         return data
@@ -82,7 +82,7 @@ class Users:
 
     def add_user(self, account):
         command = "INSERT INTO users(name, username, email, password, role) VALUES(\
-        '{}', '{}', '{}', '{}', '0')".format(account["name"], account["username"], account["email"]\
+        '{}', '{}', '{}', '{}', 'user')".format(account["name"], account["username"], account["email"]\
         , generate_password_hash(account["password"]))
         cursor.execute(command)
         return account
