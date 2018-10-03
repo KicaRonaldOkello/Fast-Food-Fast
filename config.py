@@ -6,10 +6,13 @@ class DevelopmentConfig(Config):
 
     DEBUG = True
     TESTNG = True
-    DATABASE_URL = 'postgres://postgres:password@localhost:5432/FastFoodFast'
+    DATABASE_URL = "dbname=FastFoodFast user=postgres password=password host=localhost"
 
 class TestConfig(Config):
 
     DEBUG = False
     TESTING = True
-    DATABASE_URL = 'postgres://postgres:password@localhost:5432/FastFoodFast_test'
+    DATABASE_URL = "dbname=FastFoodFast_test user=postgres password=password host=localhost"
+
+
+

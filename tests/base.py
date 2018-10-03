@@ -6,16 +6,23 @@ missing_order_field, empty_space_order, wrong_order_input, missing_menu, empty_m
 from app import views
 from app.dboperations import Menu, Order
 import json
+from config import TestConfig
 from app.models import Database
 db = Database()
 cursor = db.cur
 dictcur = db.dict_cursor
+
+app.config.from_object(TestConfig)
 
 
 
 class TestUser(unittest.TestCase):
     def setUp(self):
         self.client = app.test_client()
+        db.create_menu_table()
+        db.create_user_table()
+        db.create_orders_table()
+
 
     def tearDown(self):
         clear_users = "DELETE FROM users CASADE"

@@ -2,11 +2,15 @@
 from app import app
 import psycopg2
 from psycopg2.extras import RealDictCursor
+import os
+from config import TestConfig, DevelopmentConfig
+
+app.config.from_object(DevelopmentConfig)
 
 class Database:
     def __init__(self):
         """Connect to the database."""
-        self.conn = psycopg2.connect("dbname=FastFoodFast user=postgres password=password host=localhost")
+        self.conn = psycopg2.connect(app.config["DATABASE_URL"])
         self.conn.autocommit = True
         self.cur = self.conn.cursor()
         self.dict_cursor=self.conn.cursor(cursor_factory=RealDictCursor)
