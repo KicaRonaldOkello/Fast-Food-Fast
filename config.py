@@ -6,7 +6,7 @@ class DevelopmentConfig(Config):
 
     DEBUG = True
     TESTNG = True
-    DATABASE_URL = "dbname=FastFoodFast user=postgres password=password host=localhost"
+    DATABASE_URL = "dbname=FastFoodFast_test user=postgres password=password host=localhost"
 
 class TestConfig(Config):
 
