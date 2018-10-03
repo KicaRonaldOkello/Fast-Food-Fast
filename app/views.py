@@ -58,6 +58,10 @@ def add_menu():
     if empty_space:
         return jsonify({"Error": "Incomplete menu item"}), 400
 
+    menu_input = validator.validate_menu_input(menu)
+    if  menu_input:
+       return jsonify({"Error": "Wrong menu name or price"}), 400 
+
     strip = validator.strip_input(menu)
 
     check_for_duplicate = menus.check_duplicate(strip)
@@ -191,7 +195,17 @@ def login():
         return jsonify({"Error":"Please input correct username or password"}), 401
 
 
-
-
+@app.route("/api/v1/auth/admin", methods=["POST"])
+def add_admin():
+    account = {
+        "name": request.json["name"],
+        "username": request.json["username"],
+        "email": request.json["email"],
+        "password": request.json["password"]
+    } 
+    new_admin = user.add_admin(account)
+    admin = user.check_username(account)
+    access_token = create_access_token(identity=admin)
+    return jsonify(access_token=access_token),201
     
 

@@ -87,6 +87,13 @@ class Users:
         cursor.execute(command)
         return account
 
+    def add_admin(self, account):
+        command = "INSERT INTO users(name, username, email, password, role) VALUES(\
+        '{}', '{}', '{}', '{}', 'admin')".format(account["name"], account["username"], account["email"]\
+        , generate_password_hash(account["password"]))
+        cursor.execute(command)
+        return account
+
 
 
 
