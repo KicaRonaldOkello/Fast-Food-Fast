@@ -85,22 +85,22 @@ class TestUser(unittest.TestCase):
         return response
 
     def missing_order_field(self, missing_order_field):
-        response = self.client.post("/api/v1/orders",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
+        response = self.client.post("/api/v1/user/orders",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
         ,data = json.dumps(missing_order_field), content_type = 'application/json')
         return response 
 
     def empty_space_order(self, empty_space_order):
-        response = self.client.post("/api/v1/orders",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
+        response = self.client.post("/api/v1/user/orders",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
         ,data = json.dumps(missing_order_field), content_type = 'application/json')
         return response
 
     def wrong_order_input(self, wrong_order_input):
-        response = self.client.post("/api/v1/orders",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
+        response = self.client.post("/api/v1/user/orders",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
         ,data = json.dumps(wrong_order_input), content_type = 'application/json')
         return response
 
     def add_order(self, create_order):
-        response = self.client.post("/api/v1/orders",headers={'Authorization': 'Bearer '+ self.user_token(sign_in_admin)}\
+        response = self.client.post("/api/v1/user/orders",headers={'Authorization': 'Bearer '+ self.user_token(sign_in_admin)}\
         ,data = json.dumps(create_order), content_type = 'application/json')
         return response
 

@@ -15,7 +15,7 @@ db.create_user_table()
 db.create_orders_table()
 validator = Validators()
 
-@app.route("/api/v1/orders", methods=["POST"])
+@app.route("/api/v1/user/orders", methods=["POST"])
 @jwt_required
 def add_order():
     """Implements the add order api."""
