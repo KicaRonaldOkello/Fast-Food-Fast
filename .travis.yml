@@ -11,7 +11,7 @@ install:
   - pip install coveralls
 
 before_script:
-  - psql -c 'create database FastFoodFast;' -U postgres
+  - psql -c 'create database FastFoodFast_test;' -U postgres
 
 script:
   - py.test --cov=app tests/
