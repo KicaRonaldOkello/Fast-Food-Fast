@@ -5,7 +5,7 @@ from psycopg2.extras import RealDictCursor
 import os
 from config import TestConfig, DevelopmentConfig
 
-app.config.from_object(DevelopmentConfig)
+app.config.from_object('config.DevelopmentConfig')
 
 class Database:
     def __init__(self):

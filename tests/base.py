@@ -12,7 +12,7 @@ db = Database()
 cursor = db.cur
 dictcur = db.dict_cursor
 
-app.config.from_object(TestConfig)
+app.config.from_object('config.TestConfig')
 
 
 
