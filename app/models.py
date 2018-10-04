@@ -5,12 +5,12 @@ from psycopg2.extras import RealDictCursor
 import os
 from config import TestConfig, DevelopmentConfig
 
-app.config.from_object('config.DevelopmentConfig')
+app.config.from_object(DevelopmentConfig)
 
 class Database:
     def __init__(self):
         """Connect to the database."""
-        self.conn = psycopg2.connect(app.config["DATABASE_URL"])
+        self.conn = psycopg2.connect(app.config['DATABASE_URL'])
         self.conn.autocommit = True
         self.cur = self.conn.cursor()
         self.dict_cursor=self.conn.cursor(cursor_factory=RealDictCursor)
@@ -48,4 +48,10 @@ class Database:
                         "menu_id INTEGER, FOREIGN KEY (menu_id) REFERENCES menu(menu_id))")
         self.cur.execute(orders_table)
 
-
+    def execute_query(self):
+        clear_users = "DROP TABLE users CASCADE"
+        self.cur.execute(clear_users)
+        clear_menu = "DROP TABLE menu CASCADE"
+        self.cur.execute(clear_menu)
+        clear_orders = "DROP TABLE orders CASCADE"
+        self.cur.execute(clear_orders)

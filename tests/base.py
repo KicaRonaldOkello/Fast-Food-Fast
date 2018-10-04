@@ -1,4 +1,5 @@
 import unittest
+import os
 from app import app
 from tests import (create_menu, create_order, create_user, create_admin, sign_in_admin, sign_in_user\
 ,wrong_input_signup, empty_input_login, empty_input_signup, create_user_missing, wrong_login, login_missing,\
@@ -8,32 +9,23 @@ from app.dboperations import Menu, Order
 import json
 from config import TestConfig
 from app.models import Database
+
+app.config.from_object(TestConfig)
+
 db = Database()
-cursor = db.cur
-dictcur = db.dict_cursor
-
-app.config.from_object('config.TestConfig')
-
 
 
 class TestUser(unittest.TestCase):
     def setUp(self):
-
+        
         self.client = app.test_client()
         db.create_menu_table()
         db.create_user_table()
         db.create_orders_table()
-
-
+        
     def tearDown(self):
-        clear_users = "DROP TABLE users CASCADE"
-        cursor.execute(clear_users)
-
-        clear_menu = "DROP TABLE menu CASCADE"
-        cursor.execute(clear_menu)
-
-        clear_orders = "DROP TABLE orders CASCADE"
-        cursor.execute(clear_orders)
+        
+        db.execute_query()
 
     def signup_admin(self, create_admin):
         response = self.client.post("/api/v1/auth/admin",\

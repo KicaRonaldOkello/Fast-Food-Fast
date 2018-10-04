@@ -6,6 +6,7 @@ from app.validators import Validators
 from app.dboperations import Order,Menu,Users
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, get_jwt_identity)
 
+
 orders = Order()
 menus = Menu()
 user = Users()
