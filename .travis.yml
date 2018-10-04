@@ -14,6 +14,7 @@ before_script:
   - psql -c 'create database fast_food_fast;' -U postgres
 
 script:
+  - export DATABASE_URL='postgresql://postgres:password@localhost/fast_food_fast_test'
   - py.test --cov=app tests/
 
 after_success:
