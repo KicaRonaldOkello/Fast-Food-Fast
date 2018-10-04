@@ -49,4 +49,3 @@ class Database:
         self.cur.execute(orders_table)
 
 
-1

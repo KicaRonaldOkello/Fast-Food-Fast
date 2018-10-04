@@ -15,10 +15,11 @@ db.create_user_table()
 db.create_orders_table()
 validator = Validators()
 
-@app.route("/api/v1/user/orders", methods=["POST"])
+@app.route("/api/v1/users/orders", methods=["POST"])
 @jwt_required
 def add_order():
     """Implements the add order api."""
+    current_user = get_jwt_identity()
     missing_field = validator.validate_post_missing(request.json)
     if missing_field:
         return jsonify({"Error": "Missing field"}), 400
@@ -36,8 +37,16 @@ def add_order():
     else:
         stripped_data = validator.strip_input(order)
 
-        orders.add_orders(stripped_data,user_id=1)
+        orders.add_orders(stripped_data,current_user)
         return jsonify({'order': order}), 201
+
+@app.route("/api/v1/users/orders", methods=["GET"])
+@jwt_required
+def get_order_history():
+    current_user = get_jwt_identity()
+    get_user_id = user.check_username(current_user)
+    specific_orders = orders.get_order_history(get_user_id)
+    return jsonify({"Orders":specific_orders})
 
 @app.route("/api/v1/menu", methods=["POST"])
 @jwt_required
@@ -159,7 +168,7 @@ def create_account():
 
     if not check_for_username:
         new_account = user.add_user(strip)
-        access_token = create_access_token(identity=strip["username"])
+        access_token = create_access_token(identity=new_account)
         return jsonify(access_token=access_token),201
     else:
         return jsonify({"Error": "Account already exists"}), 409

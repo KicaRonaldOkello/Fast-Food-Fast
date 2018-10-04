@@ -38,7 +38,7 @@ class Order(Menu):
             order[k] = int(v)
         command="INSERT INTO orders(amount, time, order_status, user_id, menu_id) VALUES(\
         %s, NOW(), %s, %s, %s)"
-        cursor.execute(command,(order["amount"], "New", user_id, order["food"]))
+        cursor.execute(command,(order["amount"], "New", user_id["user_id"], order["food"]))
         return order
     
 
@@ -57,6 +57,13 @@ class Order(Menu):
         one_order = dictcur.fetchone()
         return one_order
 
+    def get_order_history(self, user):
+        command = "SELECT order_id, amount, order_status,food_name, time FROM orders\
+        INNER JOIN menu ON orders.menu_id = menu.menu_id WHERE user_id = '{}'".format(user["user_id"])
+        dictcur.execute(command)
+        order_history = dictcur.fetchall()
+        return order_history
+
     def get_length(self, orderId):
         command = "SELECT order_id FROM orders WHERE order_id ='{}'".format(orderId)
         dictcur.execute(command)
@@ -74,7 +81,7 @@ class Order(Menu):
 
 class Users:
     def check_username(self, account):
-        command = "SELECT username,password,role from users WHERE username= '{}'".format(account["username"])
+        command = "SELECT username,password,role, user_id from users WHERE username= '{}'".format(account["username"])
         dictcur.execute(command)
         data = dictcur.fetchone()
         return data
@@ -92,7 +99,10 @@ class Users:
         '{}', '{}', '{}', '{}', 'admin')".format(account["name"], account["username"], account["email"]\
         , generate_password_hash(account["password"]))
         cursor.execute(command)
-        return account
+        return_id = "SELECT user_id, username, role FROM users WHERE username = '{}'".format(account["username"])
+        dictcur.execute(return_id)
+        data = dictcur.fetchall()
+        return data
 
 
 

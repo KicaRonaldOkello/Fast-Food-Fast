@@ -10,7 +10,7 @@ create_admin = {
 create_user = {
     "name":"kica",
 	"username":"ronn12",
-	"email":"okello@mail.com",
+	"email":"okelloer@mail.com",
 	"password":"12345"
 }
 
@@ -84,4 +84,7 @@ empty_menu = {
 new_menu = {
     "name":"chicken",
     "price":"4000"
+}
+update_order = {
+    "status":"Complete"
 }
