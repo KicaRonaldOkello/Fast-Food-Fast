@@ -2,8 +2,7 @@
 from app import app
 import psycopg2
 from psycopg2.extras import RealDictCursor
-import os
-from config import TestConfig, DevelopmentConfig
+from config import DevelopmentConfig
 
 app.config.from_object(DevelopmentConfig)
 
@@ -48,10 +47,3 @@ class Database:
                         "menu_id INTEGER, FOREIGN KEY (menu_id) REFERENCES menu(menu_id))")
         self.cur.execute(orders_table)
 
-    def execute_query(self):
-        clear_users = "DROP TABLE users CASCADE"
-        self.cur.execute(clear_users)
-        clear_menu = "DROP TABLE menu CASCADE"
-        self.cur.execute(clear_menu)
-        clear_orders = "DROP TABLE orders CASCADE"
-        self.cur.execute(clear_orders)

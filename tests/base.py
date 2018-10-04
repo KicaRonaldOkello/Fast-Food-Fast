@@ -10,7 +10,7 @@ import json
 from config import TestConfig
 from app.models import Database
 
-app.config.from_object(TestConfig)
+#app.config.from_object(TestConfig)
 
 db = Database()
 
@@ -24,8 +24,12 @@ class TestUser(unittest.TestCase):
         db.create_orders_table()
         
     def tearDown(self):
-        
-        db.execute_query()
+        clear_users = "DROP TABLE users CASCADE"
+        db.cur.execute(clear_users)
+        clear_menu = "DROP TABLE menu CASCADE"
+        db.cur.execute(clear_menu)
+        clear_orders = "DROP TABLE orders CASCADE"
+        db.cur.execute(clear_orders)
 
     def signup_admin(self, create_admin):
         response = self.client.post("/api/v1/auth/admin",\
