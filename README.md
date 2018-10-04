@@ -9,7 +9,7 @@ You can acess it at:
    [![Coverage Status](https://coveralls.io/repos/github/KicaRonaldOkello/Fast-Food-Fast/badge.svg?branch=ft-challenge3)](https://coveralls.io/github/KicaRonaldOkello/Fast-Food-Fast?branch=ft-challenge3)
    
   Heroku link:
-    https://fast-food-fas.herokuapp.com/api/v1/orders
+ 
    
    
 # Getting Started.
