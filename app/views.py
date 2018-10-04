@@ -5,6 +5,7 @@ from app.models import Database
 from app.validators import Validators
 from app.dboperations import Order,Menu,Users
 from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, get_jwt_identity)
+from flasgger import swag_from
 
 
 orders = Order()
@@ -18,6 +19,7 @@ validator = Validators()
 
 @app.route("/api/v1/users/orders", methods=["POST"])
 @jwt_required
+@swag_from('./docs/add_order.yml')
 def add_order():
     """Implements the add order api."""
     current_user = get_jwt_identity()
@@ -43,6 +45,7 @@ def add_order():
 
 @app.route("/api/v1/users/orders", methods=["GET"])
 @jwt_required
+@swag_from('./docs/get_order_history.yml')
 def get_order_history():
     current_user = get_jwt_identity()
     get_user_id = user.check_username(current_user)
@@ -51,6 +54,7 @@ def get_order_history():
 
 @app.route("/api/v1/menu", methods=["POST"])
 @jwt_required
+@swag_from('./docs/add_menu.yml')
 def add_menu():
     """Implements the add menu api."""
     current_user = get_jwt_identity()
@@ -85,6 +89,7 @@ def add_menu():
     
 
 @app.route("/api/v1/menu", methods=["GET"])
+@swag_from('./docs/get_all_menu.yml')
 def get_all_menu():
     """Implements the get menu api."""
     menu_items = menus.get_menu()
@@ -92,6 +97,7 @@ def get_all_menu():
 
 @app.route("/api/v1/orders", methods=["GET"])
 @jwt_required
+@swag_from('./docs/get_all_orders.yml')
 def get_all_orders():
     """Implements the get orders api."""
     current_user = get_jwt_identity()
@@ -103,6 +109,7 @@ def get_all_orders():
 
 @app.route("/api/v1/orders/<orderId>", methods=["GET"])
 @jwt_required
+@swag_from('./docs/get_one_order.yml')
 def get_one_order(orderId):
     """Implements api to get a specific order."""
     current_user = get_jwt_identity()
@@ -122,6 +129,7 @@ def get_one_order(orderId):
 
 @app.route("/api/v1/orders/<orderId>", methods=["PUT"])
 @jwt_required
+@swag_from('./docs/update_order.yml')
 def update_order(orderId):
     """Implements api that changes order status."""
     current_user = get_jwt_identity()
@@ -145,6 +153,7 @@ def update_order(orderId):
         return jsonify({"Error": "Order does not exist"}), 404
 
 @app.route("/api/v1/auth/signup", methods=["POST"])
+@swag_from('./docs/signup.yml')
 def create_account():
     validate_missing = validator.validate_missing_account(request.json)
     if validate_missing:
@@ -175,6 +184,7 @@ def create_account():
         return jsonify({"Error": "Account already exists"}), 409
 
 @app.route("/api/v1/auth/login", methods=["POST"])
+@swag_from('./docs/login.yml')
 def login():
     validate_missing = validator.validate_missing_login(request.json)
     if validate_missing:
@@ -206,6 +216,7 @@ def login():
 
 
 @app.route("/api/v1/auth/admin", methods=["POST"])
+@swag_from('./docs/signup_admin.yml')
 def add_admin():
     account = {
         "name": request.json["name"],

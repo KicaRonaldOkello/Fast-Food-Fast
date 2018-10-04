@@ -1,0 +1,22 @@
+Sign in.
+---
+tags:
+ - User Authentication
+parameters:
+  - in: body
+    name: body
+    required: true
+    type: string
+    description: This endpoint sign in a user. 
+responses:
+  201:
+    description: 
+    schema:
+      id: register
+      properties:
+        password:
+          type: string
+          default: king
+        username:
+          type: string
+          default: okello2
