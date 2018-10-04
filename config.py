@@ -12,7 +12,7 @@ class TestConfig(Config):
 
     DEBUG = False
     TESTING = True
-    DATABASE_URL = 'postgresql://postgres:password@localhost/FastFoodFast_test'
+    DATABASE_URL = 'postgresql://postgres:password@localhost/fast_food_fast_test'
 
 
 
