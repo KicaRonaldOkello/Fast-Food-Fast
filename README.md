@@ -10,7 +10,7 @@ You can acess it at:
    
   Heroku link:
  
-   
+   https://fast-food-challenge-3.herokuapp.com/api/v1/menu
    
 # Getting Started.
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
