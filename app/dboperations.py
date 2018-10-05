@@ -86,6 +86,12 @@ class Users:
         data = dictcur.fetchone()
         return data
 
+    def check_email(self, account):
+        command = "SELECT email from users WHERE email= '{}'".format(account["email"])
+        dictcur.execute(command)
+        data = dictcur.fetchone()
+        return data
+
 
     def add_user(self, account):
         command = "INSERT INTO users(name, username, email, password, role) VALUES(\

@@ -6,10 +6,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class Validators:
     def validate_post_missing(self,order):
-        if order.get("amount") == None or order.get("food") == None:
-            return True
-        else:
-            return False
+        missing = []
+        if order.get("amount") == None:
+            missing.append("amount")
+        if order.get("food") == None:
+            missing.append("food")
+        return missing
             
     def validate_empty_space(self, order):
         for k in order:
@@ -54,22 +56,32 @@ class Validators:
         return order
 
     def validate_missing_menu(self,order):
-        if order.get("name") == None or order.get("price") == None:
-            return True
-        else:
-            return False
+        missing = []
+        if order.get("name") == None:
+            missing.append("name")
+        if order.get("price") == None:
+            missing.append("price")
+        return missing
 
     def validate_missing_account(self, account):
-        if account.get("name") == None or account.get("username") == None or\
-        account.get("email") == None or account.get("password") == None:
-            return True
-        else:
-            return False
+        missing_data = []
+        if account.get("name") == None :
+            missing_data.append("name")
+        if account.get("username") == None:
+            missing_data.append("username") 
+        if account.get("email") == None:
+            missing_data.append("email")
+        if account.get("password") == None:
+            missing_data.append("password")
+        return missing_data
 
     def validate_missing_login(self, login):
-        if login.get("username") == None or login.get("password") == None:
-            return True
-        return False
+        missing = []
+        if login.get("username") == None:
+            missing.append("username")
+        if login.get("password") == None:
+            missing.append("password")
+        return missing
 
     def return_key(self, order_status):
         key_order_status = ["New", "Processing", "Cancelled", "Complete"]
@@ -81,5 +93,12 @@ class Validators:
 
     def unhash_password(self,hashed_password, login_password):
         return check_password_hash(hashed_password["password"], login_password["password"])
+
+    def instance_of_post(self, account):
+        instance = []
+        for k in account:
+            if not isinstance(account[k], str):
+                instance.append(k)
+        return instance
 
         

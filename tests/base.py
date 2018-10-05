@@ -10,7 +10,7 @@ import json
 from config import TestConfig
 from app.models import Database
 
-#app.config.from_object(TestConfig)
+app.config.from_object(TestConfig)
 
 db = Database()
 

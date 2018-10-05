@@ -6,6 +6,7 @@ from flasgger import Swagger
 app = Flask(__name__)
 
 from app import views
+app.config.from_object(DevelopmentConfig)
 
 app.config['JWT_SECRET_KEY'] = 'secret-key'
 jwt = JWTManager(app)
