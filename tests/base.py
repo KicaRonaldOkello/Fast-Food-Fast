@@ -17,12 +17,12 @@ db = Database()
 
 class TestUser(unittest.TestCase):
     def setUp(self):
-        
+
         self.client = app.test_client()
         db.create_menu_table()
         db.create_user_table()
         db.create_orders_table()
-        
+
     def tearDown(self):
         clear_users = "DROP TABLE users CASCADE"
         db.cur.execute(clear_users)
@@ -36,14 +36,13 @@ class TestUser(unittest.TestCase):
         data = json.dumps(create_admin), content_type = 'application/json')
         response_data = json.loads(response.data.decode())
         return response_data["access_token"]
-        
 
     def signup_user(self, create_user):
         response = self.client.post("/api/v1/auth/signup",\
         data = json.dumps(create_user), content_type = 'application/json')
         return response
 
-    def signin_user(self,sign_in_user):
+    def signin_user(self, sign_in_user):
         response = self.client.post("api/v1/auth/login",\
         data = json.dumps(sign_in_user), content_type = 'application/json')
         return response
@@ -85,80 +84,90 @@ class TestUser(unittest.TestCase):
         return response
 
     def missing_order_field(self, missing_order_field):
-        response = self.client.post("/api/v1/users/orders",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
+        response = self.client.post("/api/v1/users/orders",headers={'Authorization':\
+         'Bearer '+ self.signup_admin(create_admin)}\
         ,data = json.dumps(missing_order_field), content_type = 'application/json')
-        return response 
+        return response
 
     def empty_space_order(self, empty_space_order):
-        response = self.client.post("/api/v1/users/orders",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
+        response = self.client.post("/api/v1/users/orders",headers={'Authorization':\
+         'Bearer '+ self.signup_admin(create_admin)}\
         ,data = json.dumps(missing_order_field), content_type = 'application/json')
         return response
 
     def wrong_order_input(self, wrong_order_input):
-        response = self.client.post("/api/v1/users/orders",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
+        response = self.client.post("/api/v1/users/orders",headers={'Authorization':\
+         'Bearer '+ self.signup_admin(create_admin)}\
         ,data = json.dumps(wrong_order_input), content_type = 'application/json')
         return response
 
     def add_order(self, create_order):
-        response = self.client.post("/api/v1/users/orders",headers={'Authorization': 'Bearer '+ self.user_token(sign_in_user)}\
+        response = self.client.post("/api/v1/users/orders",headers={'Authorization':\
+         'Bearer '+ self.user_token(sign_in_user)}\
         ,data = json.dumps(create_order), content_type = 'application/json')
         return response
 
-    
-
     def create_menu(self, create_menu):
-        response = self.client.post("/api/v1/menu",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
+        response = self.client.post("/api/v1/menu",headers={'Authorization':\
+         'Bearer '+ self.signup_admin(create_admin)}\
         ,data = json.dumps(create_menu), content_type = 'application/json')
         return response
 
     def missing_menu(self, missing_menu):
-        response = self.client.post("/api/v1/menu",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
+        response = self.client.post("/api/v1/menu",headers={'Authorization':\
+         'Bearer '+ self.signup_admin(create_admin)}\
         ,data = json.dumps(missing_menu), content_type = 'application/json')
         return response
 
     def empty_menu(self, empty_menu):
-        response = self.client.post("/api/v1/menu",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
+        response = self.client.post("/api/v1/menu",headers={'Authorization':\
+         'Bearer '+ self.signup_admin(create_admin)}\
         ,data = json.dumps(empty_menu), content_type = 'application/json')
         return response
 
     def get_menu(self):
-        response = self.client.get("/api/v1/menu", content_type = 'application/json')
+        response = self.client.get(
+            "/api/v1/menu", content_type='application/json')
         return response
 
     def get_all_orders(self):
-        response = self.client.get("/api/v1/orders",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
+        response = self.client.get("/api/v1/orders",headers={'Authorization':\
+         'Bearer '+ self.signup_admin(create_admin)}\
         ,content_type = 'application/json')
         return response
 
     def get_all_orders_no_authorization(self):
-        response = self.client.get("/api/v1/orders",headers={'Authorization': 'Bearer '+ self.user_token(sign_in_user)}\
+        response = self.client.get("/api/v1/orders",headers={'Authorization':\
+         'Bearer '+ self.user_token(sign_in_user)}\
         ,content_type = 'application/json')
         return response
 
     def get_one_order(self):
-        response = self.client.get("/api/v1/orders/1",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
+        response = self.client.get("/api/v1/orders/1",headers={'Authorization':\
+         'Bearer '+ self.signup_admin(create_admin)}\
         ,content_type = 'application/json')
         return response
 
     def get_one_order_not_authorised(self):
-        response = self.client.get("/api/v1/orders",headers={'Authorization': 'Bearer '+ self.user_token(sign_in_user)}\
+        response = self.client.get("/api/v1/orders",headers={'Authorization':\
+         'Bearer '+ self.user_token(sign_in_user)}\
         ,content_type = 'application/json')
         return response
 
     def get_one_order_wrong_input(self):
-        response = self.client.get("/api/v1/orders/a",headers={'Authorization': 'Bearer '+ self.signup_admin(create_admin)}\
+        response = self.client.get("/api/v1/orders/a",headers={'Authorization':\
+         'Bearer '+ self.signup_admin(create_admin)}\
         ,content_type = 'application/json')
         return response
 
     def update_order(self, update_order):
-        response = self.client.put("/api/v1/orders/1",headers={'Authorization': 'Bearer '+ self.user_token(sign_in_admin)}\
+        response = self.client.put("/api/v1/orders/1",headers={'Authorization':\
+         'Bearer '+ self.user_token(sign_in_admin)}\
         ,data=json.dumps(update_order), content_type = 'application/json')
         return response
 
     def update_order_not_admin(self, update_order):
-        response = self.client.put("/api/v1/orders/1",headers={'Authorization': 'Bearer '+ self.user_token(sign_in_user)}\
+        response = self.client.put("/api/v1/orders/1",headers={'Authorization':\
+         'Bearer '+ self.user_token(sign_in_user)}\
         ,data=json.dumps(update_order), content_type = 'application/json')
         return response
-    
-        
-

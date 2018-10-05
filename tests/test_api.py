@@ -2,6 +2,7 @@ from tests.base import TestUser
 from tests.base import missing_order_field, empty_space_order, wrong_order_input, create_admin,\
 create_menu, create_order, missing_menu, empty_menu, new_menu,create_user, sign_in_user,update_order
 
+
 class TestApp(TestUser):
     def test_missing_order_field(self):
         response = self.missing_order_field(missing_order_field)
@@ -39,8 +40,8 @@ class TestApp(TestUser):
         self.assertEqual(response.status_code, 200)
 
     def duplicate_menu(self):
-        response = self.create_menu(new_menu)   
-        self.assertEqual(response.status_code, 409) 
+        response = self.create_menu(new_menu)
+        self.assertEqual(response.status_code, 409)
 
     def test_get_all_orders(self):
         response = self.get_all_orders()
@@ -56,8 +57,8 @@ class TestApp(TestUser):
         self.assertEqual(response.status_code, 200)
 
     def get_one_order_not_authorised(self):
-       response = self.get_one_orders_no_authorised()
-       self.assertEqual(response.status_code, 401) 
+        response = self.get_one_orders_no_authorised()
+        self.assertEqual(response.status_code, 401)
 
     def get_one_order_wrong_input(self):
         response = self.get_one_order_wrong_input()

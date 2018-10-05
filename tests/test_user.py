@@ -42,6 +42,3 @@ class TestUser(TestUser):
     def test_missing_field_login(self):
         response = self.wrong_login_input(login_missing)
         self.assertEqual(response.status_code, 400)
-
-
-    

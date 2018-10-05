@@ -4,34 +4,35 @@ import re
 from pyisemail import is_email
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 class Validators:
-    def validate_post_missing(self,order):
+    def validate_post_missing(self, order):
         missing = []
         if order.get("amount") == None:
             missing.append("amount")
         if order.get("food") == None:
             missing.append("food")
         return missing
-            
+
     def validate_empty_space(self, order):
         for k in order:
             if order[k].isspace():
                 return True
         else:
             return False
-        
+
     def validate_input(self, order):
         match_name = re.compile(r"^[a-zA-Z0-9 ]+$")
         match_amount = re.compile(r"[0-9]+")
-        if not match_amount.search(
-            order["amount"]) or not match_amount.search(order["food"]):
+        if not match_amount.search(order["amount"]) or not match_amount.search(
+                order["food"]):
             return True
         return False
 
     def validate_account_input(self, order):
         match_name = re.compile(r"^[a-zA-Z0-9 ]+$")
-        if not match_name.search(
-            order["name"]) or not match_name.search(order["username"]) or not is_email(order["email"]):
+        if not match_name.search(order["name"]) or not match_name.search(
+                order["username"]) or not is_email(order["email"]):
             return True
         return False
 
@@ -44,18 +45,18 @@ class Validators:
     def validate_menu_input(self, order):
         match_name = re.compile(r"^[a-zA-Z0-9 ]+$")
         match_amount = re.compile(r"[0-9]+")
-        if not match_name.search(
-            order["name"]) or not match_amount.search(order["price"]):
+        if not match_name.search(order["name"]) or not match_amount.search(
+                order["price"]):
             return True
         return False
-            
-    def strip_input(self,order):
+
+    def strip_input(self, order):
         for k, v in order.items():
             if isinstance(order[k], str):
-                order[k] = v.strip()   
+                order[k] = v.strip()
         return order
 
-    def validate_missing_menu(self,order):
+    def validate_missing_menu(self, order):
         missing = []
         if order.get("name") == None:
             missing.append("name")
@@ -65,10 +66,10 @@ class Validators:
 
     def validate_missing_account(self, account):
         missing_data = []
-        if account.get("name") == None :
+        if account.get("name") == None:
             missing_data.append("name")
         if account.get("username") == None:
-            missing_data.append("username") 
+            missing_data.append("username")
         if account.get("email") == None:
             missing_data.append("email")
         if account.get("password") == None:
@@ -91,8 +92,9 @@ class Validators:
         else:
             return False
 
-    def unhash_password(self,hashed_password, login_password):
-        return check_password_hash(hashed_password["password"], login_password["password"])
+    def unhash_password(self, hashed_password, login_password):
+        return check_password_hash(hashed_password["password"],
+                                   login_password["password"])
 
     def instance_of_post(self, account):
         instance = []
@@ -100,5 +102,3 @@ class Validators:
             if not isinstance(account[k], str):
                 instance.append(k)
         return instance
-
-        
