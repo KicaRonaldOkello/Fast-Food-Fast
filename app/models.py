@@ -3,13 +3,14 @@ from app import app
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from config import DevelopmentConfig
+import os
 
 app.config.from_object(DevelopmentConfig)
 
 class Database:
     def __init__(self):
         """Connect to the database."""
-        self.conn = psycopg2.connect(app.config['DATABASE_URL'])
+        self.conn = psycopg2.connect(os.environ['DATABASE_URL'])
         self.conn.autocommit = True
         self.cur = self.conn.cursor()
         self.dict_cursor=self.conn.cursor(cursor_factory=RealDictCursor)
