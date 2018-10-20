@@ -6,7 +6,7 @@ from flasgger import Swagger
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+
 
 from app import views
 app.config.from_object(DevelopmentConfig)
@@ -14,3 +14,4 @@ app.config.from_object(DevelopmentConfig)
 app.config['JWT_SECRET_KEY'] = 'secret-key'
 jwt = JWTManager(app)
 swag = Swagger(app)
+CORS(app)

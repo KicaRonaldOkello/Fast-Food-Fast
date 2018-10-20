@@ -211,7 +211,7 @@ def create_account():
     inputs = validator.validate_account_input(account)
     if inputs:
         return jsonify({
-            "error":
+            "Error":
             "One or all of the keys is taking invlaid input"
         }), 400
 
@@ -226,7 +226,7 @@ def create_account():
     if not check_for_username:
         new_account = user.add_user(strip)
         access_token = create_access_token(identity=new_account)
-        return jsonify(access_token=access_token), 201
+        return jsonify({"access_token": access_token}), 201
     else:
         return jsonify({"Error": "Account already exists"}), 409
 

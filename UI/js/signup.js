@@ -18,22 +18,21 @@ function signup() {
     };
 
     fetch(myurl, init)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (json) {
-            if (json.access_token) {
-                sessionStorage.setItem('Token', json.access_token);
-                window.location.href = 'file:///home/kica/Desktop/challenge1/Fast-Food-Fast/UI/orders.html';
+    .then(function(res){
+        return res.json();
+    })
+    .then(function(data){
+            if (data.access_token){
+                sessionStorage.setItem('access_token', data.access_token);
+                window.location.href = 'orders.html';
             }
-            else {
-                console.log(json.Error);
+            else{
+                alert(data.Error);
             }
-        })
-        .catch((error)=> {
-            console.log(error);
+            
         });
 }
+    
 
 function login() {
     var mybody = JSON.stringify({
