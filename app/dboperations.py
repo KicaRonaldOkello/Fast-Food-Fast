@@ -14,8 +14,8 @@ class Menu:
             if k == "price":
                 menu[k] = int(v)
 
-        command = "INSERT INTO menu(food_name, price) VALUES (%s, %s)"
-        cursor.execute(command, (menu["name"], menu["price"]))
+        command = "INSERT INTO menu(food_name, price, image_name) VALUES (%s, %s, %s)"
+        cursor.execute(command, (menu["name"], menu["price"], menu["image_name"]))
 
     def get_menu(self):
         """Returns all items in the menu list."""

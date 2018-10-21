@@ -8,6 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="HandheldFriendly" content="true">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/menu.js"></script>
 </head>
 <body>
 	<div id="heading1">
@@ -20,13 +21,13 @@
 			<li><a href="orderhistory.html">ORDER HISTORY</a></li>
 		</ul>
 	</div>
-	<div>
+	<div id="orders">
 		<div id="order">
 			<img src="img/chicken.jpeg">
 			<div class="order-display">
 				<p>Chicken @ 3,500/=</p>
 				<input type="text" name="amount" width="3px"><label>pieces</label>
-				<button>Order</button>
+				<button onclick="menu()">Order</button>
 			</div>
 		</div>
 		<div id="order">
@@ -52,6 +53,8 @@
 				<input type="text" name="amount" width="3px"><label>pieces</label>
 				<button>Order</button>
 			</div>
+		</div>
+
 		</div>
 	</div>
 

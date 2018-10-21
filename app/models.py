@@ -35,7 +35,8 @@ class Database:
         menu_table = ("CREATE TABLE IF NOT EXISTS menu"
                       "(menu_id serial NOT NULL PRIMARY KEY,"
                       "food_name VARCHAR(60) UNIQUE NOT NULL,"
-                      "price INTEGER NOT NULL)")
+                      "price INTEGER NOT NULL,"
+                      "image_name VARCHAR(60) UNIQUE NOT NULL)")
         self.cur.execute(menu_table)
 
     def create_orders_table(self):
