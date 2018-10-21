@@ -1,0 +1,9 @@
+Get menu
+---
+tags:
+- Menu
+description: This endpoint returns all menu items.
+
+reponses:
+  200:
+    description: OK

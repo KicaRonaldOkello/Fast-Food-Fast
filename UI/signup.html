@@ -8,32 +8,33 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="HandheldFriendly" content="true">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/signup.js"></script>
 </head>
 <body>
 	<div id="heading1">
 		<h1>Fast Food Fast</h1>
 	</div>
 	<div id="signup">
-		<form method="" action="orders.html">
+		<form method="POST" onsubmit="return signup()">
 			<div class="row">
 				<label>First name:</label>
-				<input type="text" name="firstName">
+				<input type="text" id="name" name="name">
 			</div>
 			<div class="row">
-				<label>Last name:</label>
-				<input type="text" name="lastName">
+				<label>Username:</label>
+				<input type="text" id="username" name="username">
 			</div>
 			<div class="row">
 				<label>Email:</label>
-				<input type="text" name="email">
+				<input type="text" id="email" name="email">
 			</div>
 			<div class="row">
-				<label>Location:</label>
-				<input type="text" name="location">
+				<label>Password:</label>
+				<input type="text" id="password" name="password">
 			</div>
 			<div class="row">
 				<label></label>
-				<button>Sign Up</button>
+				<button type="submit">Sign Up</button>
 			</div>
 		</form>
 	</div>

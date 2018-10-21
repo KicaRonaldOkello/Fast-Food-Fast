@@ -1,0 +1,21 @@
+language: python
+
+python:
+  - "3.6"
+
+services:
+  - postgresql
+
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+
+before_script:
+  - psql -c 'create database fast_food_fast_test;' -U postgres
+
+script:
+  - export DATABASE_URL='postgresql://postgres:password@localhost/fast_food_fast_test'
+  - py.test --cov=app tests/
+
+after_success:
+- coveralls

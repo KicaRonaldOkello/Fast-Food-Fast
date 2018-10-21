@@ -8,6 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="HandheldFriendly" content="true">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/signup.js"></script>
 </head>
 <body id="home">
 		<div id="heading">
@@ -15,19 +16,19 @@
 		</div>
 		<p id="statement">"Your number one fast food delivery."</p>
 		<div id="flexible">
-			<form method="" action="orders.html">
+			<form method="POST" onsubmit="return login()">
 				<p>Login as user</p>
 				<div class="row">
-					<label>Email:</label>
-					<input type="text" name="email">
+					<label>Username:</label>
+					<input type="text" name="username" id="LoginUsername">
 				</div>
 				<div class="row">
 					<label>Password:</label>
-					<input type="password" name="password">
+					<input type="password" name="password" id="LoginPassword">
 				</div>
 				<div class="row">
 					<label></label>
-					<button>Login</button>
+					<button type="submit">Login</button>
 				</div>
 			</form>
 			<form method="" action="admin.html">
