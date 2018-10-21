@@ -13,7 +13,7 @@ function signup() {
 
     var init = {
         method: 'POST',
-        headers: myheader,
+        headers: myheader, 
         body: mybody
     };
 
@@ -22,6 +22,7 @@ function signup() {
         return res.json();
     })
     .then(function(data){
+            console.log(data);
             if (data.access_token){
                 sessionStorage.setItem('access_token', data.access_token);
                 window.location.href = 'orders.html';
