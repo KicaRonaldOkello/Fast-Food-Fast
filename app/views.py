@@ -260,7 +260,7 @@ def login():
 
     inputs = validator.validate_login_input(login)
     if inputs:
-        return jsonify({"error": "Username is taking invlaid input"}), 400
+        return jsonify({"Error": "Username is taking invlaid input"}), 400
 
     strip = validator.strip_input(login)
 
@@ -269,7 +269,7 @@ def login():
 
     if check_for_username and check_for_password:
         access_token = create_access_token(identity=check_for_username)
-        return jsonify(access_token=access_token), 200
+        return jsonify({"access_token": access_token}), 200
 
     else:
         return jsonify({
