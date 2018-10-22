@@ -36,11 +36,11 @@ function signup() {
     
 
 function login() {
-    var mybody = JSON.stringify({
+    var login_body = JSON.stringify({
         'username': document.getElementById('LoginUsername').value,
         'password': document.getElementById('LoginPassword').value
     });
-    var myurl = 'http://localhost:5000/api/v1/auth/login';
+    var login_url = 'http://localhost:5000/api/v1/auth/login';
 
     var myheader = {
         'Content-Type': 'application/json'
@@ -49,20 +49,23 @@ function login() {
     var init = {
         method: 'POST',
         headers: myheader,
-        body: mybody
+        body: login_body
     };
 
-    fetch(myurl, init)
+    fetch(login_url, init)
         .then(function (response) {
             return response.json();
         })
         .then(function (json) {
             if (json.access_token) {
                 sessionStorage.setItem('Token', json.access_token);
-                window.location.href = 'file:///home/kica/Desktop/challenge1/Fast-Food-Fast/UI/orders.html';
+                window.location.href = 'orders.html';
             }
             else {
-                console.log(json.Error);
+                var par = document.getElementById("login_error");
+                par.style.color = "pink";
+                var message = document.createTextNode("*"+json.Error);
+                par.appendChild(message);
             }
         })
         .catch((error)=> {

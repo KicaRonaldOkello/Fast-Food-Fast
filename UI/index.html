@@ -16,20 +16,21 @@
 		</div>
 		<p id="statement">"Your number one fast food delivery."</p>
 		<div id="flexible">
-			<form method="POST" onsubmit="return login()">
+			<form method="POST">
 				<p>Login as user</p>
 				<div class="row">
 					<label>Username:</label>
-					<input type="text" name="username" id="LoginUsername">
+					<input type="text" id="LoginUsername">
 				</div>
 				<div class="row">
 					<label>Password:</label>
-					<input type="password" name="password" id="LoginPassword">
+					<input type="password" id="LoginPassword">
 				</div>
 				<div class="row">
 					<label></label>
-					<button type="submit">Login</button>
+					<button type="button" onclick="login()">Login</button>
 				</div>
+				<p id="login_error"></p>
 			</form>
 			<form method="" action="admin.html">
 				<p>Login as admin</p>
