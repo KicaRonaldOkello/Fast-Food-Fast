@@ -57,8 +57,12 @@ a{
 }
 #signup{
 	text-align: center;
-	color: #c74000;
+	color: white;
 	display: block;
+	padding: 10px;
+	background-color: rgba(0,0,0,0.5);
+	margin: 50px;
+	border-radius: 10px;
 
 }
 #order{
@@ -103,14 +107,14 @@ input{
 .row button{
 	display: table-cell;
 }
-form{
+/* form{
 	padding: 10px;
 	background-color: rgba(0,0,0,0.5);
 	margin: 50px;
 	border-radius: 10px;
 	color: white;
 }
-#end{
+#end{ */
 	text-align: center;
 }
 @media only screen and (max-width: 768px){

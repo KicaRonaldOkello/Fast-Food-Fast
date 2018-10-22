@@ -211,7 +211,7 @@ def create_account():
     inputs = validator.validate_account_input(account)
     if inputs:
         return jsonify({
-            "error":
+            "Error":
             "One or all of the keys is taking invlaid input"
         }), 400
 
