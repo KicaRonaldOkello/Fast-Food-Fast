@@ -14,8 +14,17 @@
 	<div id="heading1">
 		<h1>Fast Food Fast</h1>
 	</div>
+	<div id="nav">
+		<ul>
+			<li><a href="index.html">MENU</a></li>
+			<li><a href="orders.html">ORDERS</a></li>
+		</ul>
+	</div>
+	<div class="row">
+		<p id="error_message"></p>
+	</div>
 	<div id="signup">
-		<form method="POST" onsubmit="return signup()">
+		<!-- <form method="POST" onsubmit="return signup()"> -->
 			<div class="row">
 				<label>First name:</label>
 				<input type="text" id="name" name="name">
@@ -34,9 +43,9 @@
 			</div>
 			<div class="row">
 				<label></label>
-				<button type="submit">Sign Up</button>
+				<button type="submit" onclick="signup()">Sign Up</button>
 			</div>
-		</form>
+		<!-- </form> -->
 	</div>
 </body>
 </html>

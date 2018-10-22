@@ -56,16 +56,20 @@ function login() {
         .then(function (response) {
             return response.json();
         })
-        .then(function (json) {
-            if (json.access_token) {
-                sessionStorage.setItem('Token', json.access_token);
-                window.location.href = 'file:///home/kica/Desktop/challenge1/Fast-Food-Fast/UI/orders.html';
+        .then(function (data) {
+            var par = document.getElementById("error_message");
+            if (data.access_token) {
+                sessionStorage.setItem('Token', 'Bearer '+data.access_token);
+                window.location.href = 'orders.html';
+            }
+            else if (par.value == data.Error){
+                return False;
             }
             else {
-                console.log(json.Error);
+                
+                par.style.color = "red";
+                var message = document.createTextNode(data.Error);
+                par.appendChild(message);
             }
-        })
-        .catch((error)=> {
-            console.log(error);
         });
 }
