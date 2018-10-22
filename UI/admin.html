@@ -8,6 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="HandheldFriendly" content="true">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="js/add_menu.js"></script>
 </head>
 <body>
 	<div id="heading1">
@@ -47,6 +48,17 @@
 			<div class="order-display">
 				<p>Chicken @ 7000/=</p>
 				<button>Edit</button>
+			</div>
+		</div>
+		<div id="order">
+			<div class="order-display">
+				<label>Food name:</label>
+				<input type="text" id="add_food">
+				<label>Price:</label>
+				<input type="text" id="add_price">
+				<input type="file" id="upload">
+				<button type="submit" onclick="add_menu()">Add item</button>
+				<p id="res"></p>
 			</div>
 		</div>
 	</div>

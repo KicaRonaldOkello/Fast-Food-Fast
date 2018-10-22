@@ -23,15 +23,19 @@ function signup() {
     })
     .then(function(data){
             console.log(data);
+            return False
+
             if (data.access_token){
                 sessionStorage.setItem('access_token', data.access_token);
-                window.location.href = 'orders.html';
+                // window.location.href = 'orders.html';
+                return False
             }
             else{
                 alert(data.Error);
             }
             
         });
+    return true
 }
     
 
