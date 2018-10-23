@@ -56,31 +56,15 @@ function login() {
         .then(function (response) {
             return response.json();
         })
-<<<<<<< HEAD
-        .then(function (data) {
-            var par = document.getElementById("error_message");
-            if (data.access_token) {
-                sessionStorage.setItem('Token', 'Bearer '+data.access_token);
-                window.location.href = 'orders.html';
-            }
-            else if (par.value == data.Error){
-                return False;
-            }
-            else {
-                
-                par.style.color = "red";
-                var message = document.createTextNode(data.Error);
-=======
         .then(function (json) {
             if (json.access_token) {
-                sessionStorage.setItem('Token', json.access_token);
+                sessionStorage.setItem('Token', 'Bearer '+json.access_token);
                 window.location.href = 'orders.html';
             }
             else {
                 var par = document.getElementById("login_error");
                 par.style.color = "pink";
                 var message = document.createTextNode("*"+json.Error);
->>>>>>> ft-consume-login-api-161262041
                 par.appendChild(message);
             }
         });
