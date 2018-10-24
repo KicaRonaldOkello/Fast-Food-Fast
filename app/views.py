@@ -48,7 +48,7 @@ def add_order():
     inputs = validator.validate_input(order)
     if inputs:
         return jsonify({
-            "error":
+            "Error":
             "One or all of the keys is taking invlaid input"
         }), 400
     else:
