@@ -58,7 +58,9 @@ class Order(Menu):
 
     def get_an_order(self, orderId):
         """Returns a specific order from the order list."""
-        command = "SELECT * FROM orders WHERE order_id ='{}'".format(orderId)
+        command = "SELECT order_id, amount, order_status, time, food_name, username\
+        FROM orders INNER JOIN menu ON orders.menu_id = menu.menu_id INNER JOIN\
+        users ON orders.user_id = users.user_id WHERE order_id ='{}' ".format(orderId)
         dictcur.execute(command)
         one_order = dictcur.fetchone()
         return one_order
