@@ -37,7 +37,7 @@ input{
 ul{
 	list-style: none;
 	background-color: red;
-	padding: 20px
+	padding: 20px;
 	width: 100%;
 	color: white;
 }
@@ -79,9 +79,34 @@ a{
 	box-shadow: 10px 10px 5px red;
 	border-radius: 7px;
 }
+/* .rows{
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+}
+.column{
+	display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+	flex: 1;
+} */
+#order_admin{
+	padding-left: 40px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+	border-top: 1px solid red;
+	box-shadow: 10px 10px 5px red;
+	border-radius: 7px;
+}
 .order-display{
 	display: inline-grid;
 	padding-left: 30px;
+}
+#admin-orders{
+	display: inline-grid;
+	padding-left: 70px;
+	padding-right: 100px;
 }
 img{
 	height: 250px;
@@ -117,8 +142,8 @@ input{
 	margin: 50px;
 	border-radius: 10px;
 	color: white;
-}
-#end{ */
+}*/
+#end{ 
 	text-align: center;
 }
 @media only screen and (max-width: 768px){
