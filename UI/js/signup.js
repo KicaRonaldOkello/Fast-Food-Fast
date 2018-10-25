@@ -57,9 +57,13 @@ function login() {
             return response.json();
         })
         .then(function (json) {
-            if (json.access_token) {
+            if (json.access_token && json.role == 'user') {
                 sessionStorage.setItem('Token', 'Bearer '+json.access_token);
                 window.location.href = 'orders.html';
+            }
+            else if (json.access_token && json.role == 'admin'){
+                sessionStorage.setItem('Token', 'Bearer '+json.access_token);
+                window.location.href = 'admin.html';
             }
             else {
                 var par = document.getElementById("login_error");

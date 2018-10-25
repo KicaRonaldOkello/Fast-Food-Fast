@@ -269,7 +269,7 @@ def login():
 
     if check_for_username and check_for_password:
         access_token = create_access_token(identity=check_for_username)
-        return jsonify({"access_token": access_token}), 200
+        return jsonify({"access_token": access_token, "role":check_for_username["role"]}), 200
 
     else:
         return jsonify({
@@ -313,6 +313,6 @@ def add_admin():
         new_admin = user.add_admin(account)
         admin = user.check_username(account)
         access_token = create_access_token(identity=admin)
-        return jsonify(access_token=access_token), 201
+        return jsonify({'access_token':access_token, 'role':admin["role"]}), 201
     else:
         return jsonify({"Error": "User already exists"}), 409

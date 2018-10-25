@@ -50,16 +50,25 @@ function admin_one_order(){
             admin_orders.appendChild(par6);
 
             var button1 = document.createElement("button");
+            button1.name = "Processing";
+            button1.value = data.order.order_id;
             var button1_name = document.createTextNode('PROCESSING');
             button1.appendChild(button1_name);
+            button1.addEventListener("click", function(){change_status(this);});
 
             var button2 = document.createElement("button");
+            button2.name = "Complete";
+            button2.value = data.order.order_id;
             var button2_name = document.createTextNode('COMPLETE');
             button2.appendChild(button2_name);
+            button2.addEventListener("click", function(){change_status(this);});
 
             var button3 = document.createElement("button");
+            button3.name = "Cancelled";
+            button3.value = data.order.order_id;
             var button3_name = document.createTextNode('CANCELLED');
             button3.appendChild(button3_name);
+            button3.addEventListener("click", function(){change_status(this);});
 
             var admin_buttons = document.createElement("div"); 
             admin_buttons.className = "order-display";
