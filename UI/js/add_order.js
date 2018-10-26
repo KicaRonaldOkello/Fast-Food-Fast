@@ -3,7 +3,7 @@ function pick_input(input){
     x = input.value;
 }
 
-function add_order(menu_id) {
+function add_order(menu_id) {   
     var order_body = JSON.stringify({
         'amount': x,
         'food': menu_id.value
