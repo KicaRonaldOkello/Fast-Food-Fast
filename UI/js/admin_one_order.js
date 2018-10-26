@@ -1,8 +1,13 @@
 function admin_one_order(){
+    var x = sessionStorage.getItem('Token');
+    if (x == null){
+        window.location.href = 'index.html';
+    };
+
     const remove = document.getElementById("admin");
     while(admin.firstChild){
         remove.removeChild(admin.firstChild);
-    }
+    };
 
     var myurl = 'http://localhost:5000/api/v1/orders/'+document.getElementById("id").value;
 

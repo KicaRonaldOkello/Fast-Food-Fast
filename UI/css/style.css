@@ -59,6 +59,15 @@ a{
 	text-align: center;
 
 }
+#sign-admin{
+	text-align: center;
+	background-color: rgba(0,0,0,0.5);
+	padding: 10px;
+	color: white;
+}
+#sign-admin a{
+	text-decoration: underline;
+}
 #signup{
 	text-align: center;
 	color: white;

@@ -28,7 +28,10 @@ function admin_signup() {
                 window.location.href = 'admin.html';
             }
             else{
-                alert(data.Error);
+                var par = document.getElementById("login_error");
+                par.style.color = "pink";
+                var message = document.createTextNode("*"+json.Error);
+                par.appendChild(message);
             }
             
         });

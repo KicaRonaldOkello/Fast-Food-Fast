@@ -1,4 +1,9 @@
 function order_history(){
+    var x = sessionStorage.getItem('Token');
+    if (x == null){
+        window.location.href = 'index.html';
+    };
+
     var myurl = 'http://localhost:5000/api/v1/users/orders';
 
     var myheader = {

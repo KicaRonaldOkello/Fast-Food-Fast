@@ -28,7 +28,10 @@ function signup() {
                 window.location.href = 'orders.html';
             }
             else{
-                alert(data.Error);
+                var par = document.getElementById("login_error");
+                par.style.color = "pink";
+                var message = document.createTextNode("*"+data.Error);
+                par.appendChild(message);
             }
             
         });
