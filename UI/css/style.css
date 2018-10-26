@@ -63,6 +63,7 @@ a{
 	text-align: center;
 
 }
+<<<<<<< HEAD
 #sign-admin{
 	text-align: center;
 	background-color: rgba(0,0,0,0.5);
@@ -71,6 +72,10 @@ a{
 }
 #sign-admin a{
 	text-decoration: underline;
+=======
+#res{
+	color:green;
+>>>>>>> ft-consume-add-menu-161364509
 }
 #signup{
 	text-align: center;
