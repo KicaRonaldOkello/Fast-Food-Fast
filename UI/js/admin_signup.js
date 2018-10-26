@@ -5,7 +5,7 @@ function admin_signup() {
         'email': document.getElementById('email').value,
         'password': document.getElementById('password').value
     });
-    var myurl = 'http://localhost:5000/api/v1/auth/admin';
+    var myurl = 'https://fast-food-challenge-3.herokuapp.com/api/v1/auth/admin';
 
     var myheader = {
         'Content-Type': 'application/json'

@@ -12,7 +12,7 @@ function add_order(menu_id) {
         'amount': x,
         'food': menu_id.value
     });
-    var add_order_url = 'http://localhost:5000/api/v1/users/orders';
+    var add_order_url = 'https://fast-food-challenge-3.herokuapp.com/api/v1/users/orders';
 
     var myheader = {
         'Content-Type': 'application/json',

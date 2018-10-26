@@ -46,7 +46,7 @@ function login() {
         'username': document.getElementById('LoginUsername').value,
         'password': document.getElementById('LoginPassword').value
     });
-    var login_url = 'http://localhost:5000/api/v1/auth/login';
+    var login_url = 'https://fast-food-challenge-3.herokuapp.com/api/v1/auth/login';
 
     var myheader = {
         'Content-Type': 'application/json'
