@@ -25,8 +25,20 @@ function menu(){
             var menu_id = document.createTextNode(data.menu[i].menu_id);
             elem.appendChild(menu_id);
             var element = document.createElement("p");
-            var food = document.createTextNode(data.menu[i].food_name + " @ " + data.menu[i].price +" /=");
+            var food = document.createTextNode(data.menu[i].food_name);
             element.appendChild(food);
+
+            var element2 = document.createElement("p");
+            var price = document.createTextNode(data.menu[i].price +" /=");
+            element2.appendChild(price);
+
+            var element3 = document.createElement("p");
+            var description = document.createTextNode(data.menu[i].description);
+            element3.appendChild(description);
+
+            var display2 = document.createElement("div");
+            display2.id = "description1";
+
             var input = document.createElement("input");
             input.setAttribute("type", "text");
             input.width = "3px";
@@ -40,18 +52,19 @@ function menu(){
             button.addEventListener("click", function(){add_order(this);});
             button.appendChild(document.createTextNode("Order"));
             var display = document.createElement("div");
-            display.className = "order-display";
+            display.id = "description";
             var order = document.createElement("div");
             order.id = "order";
-            var image = document.createElement("img");
-            image.src = "img/"+data.menu[i].image_name;
 
-            order.appendChild(image);
-            display.appendChild(elem);
-            display.appendChild(element);
+    
+            display2.appendChild(elem);
+            display2.appendChild(element);
+            display2.appendChild(element2);
+            display.appendChild(element3);
             display.appendChild(input);
             display.appendChild(label);
             display.appendChild(button);
+            order.appendChild(display2);
             order.appendChild(display);
             orders.appendChild(order);
         }

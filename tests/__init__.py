@@ -14,7 +14,7 @@ create_user = {
     "password": "12345"
 }
 
-create_menu = {"name": "matooke", "price": "15000"}
+create_menu = {"name": "matooke", "price": "15000", "description":"Fresh food"}
 
 create_order = {"amount": "5", "food": "1"}
 
@@ -48,5 +48,5 @@ wrong_order_input = {"amount": "ksd", "food": "lk"}
 
 missing_menu = {"price": "15000"}
 empty_menu = {"name": "", "price": ""}
-new_menu = {"name": "chicken", "price": "4000"}
+new_menu = {"name": "chicken", "price": "4000", "description":"Extra spicy"}
 update_order = {"status": "Complete"}

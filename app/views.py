@@ -83,7 +83,7 @@ def add_menu():
         for field in validate_missing:
             missing += field + ', '
         return jsonify({"Error": "Missing input field:" + missing}), 400
-    menu = {"name": request.json["name"], "price": request.json["price"], "image_name": request.json["image_name"]}
+    menu = {"name": request.json["name"], "price": request.json["price"], "description": request.json["description"]}
     instance_of_menu = validator.instance_of_post(menu)
     if instance_of_menu:
         int_instance = ''

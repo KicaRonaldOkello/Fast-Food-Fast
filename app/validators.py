@@ -47,7 +47,7 @@ class Validators:
         match_amount = re.compile(r"[0-9]+")
         match_image_name = re.compile(r"^[a-zA-Z0-9.]+$")
         if not match_name.search(order["name"]) or not match_amount.search(
-                order["price"]) or not match_image_name.search(order["image_name"]):
+                order["price"]) or not match_name.search(order["description"]):
             return True
         return False
 
@@ -63,8 +63,8 @@ class Validators:
             missing.append("name")
         if order.get("price") == None:
             missing.append("price")
-        if order.get("image_name") == None:
-            missing.append("image_name")
+        if order.get("description") == None:
+            missing.append("description")
         return missing
 
     def validate_missing_account(self, account):

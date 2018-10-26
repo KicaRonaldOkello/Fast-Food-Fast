@@ -25,10 +25,9 @@ function signup() {
             console.log(data);
             return False
 
-            if (data.access_token){
-                sessionStorage.setItem('access_token', data.access_token);
-                // window.location.href = 'orders.html';
-                return False
+            if (data.access_token && data.role == 'user'){
+                sessionStorage.setItem('Token', 'Bearer '+data.access_token);
+                window.location.href = 'orders.html';
             }
             else{
                 var par = document.getElementById("login_error");

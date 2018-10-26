@@ -3,7 +3,7 @@ function add_menu (){
     var menu_body = JSON.stringify({
         'name': document.getElementById("add_food").value,
         'price': document.getElementById("add_price").value,
-        'image_name': document.getElementById("upload").files[0].name
+        'description': document.getElementById("descri").value
     })
     var myurl = 'http://localhost:5000/api/v1/menu';
     var myheader = {
@@ -32,19 +32,6 @@ function add_menu (){
             })
         }
     });
-    var  img_body = JSON.stringify({
-        'image_name': document.getElementById("upload").files[0]
-    });
-    var img_header = {
-        'Authorization': sessionStorage.getItem('Token')
-    };
-    var img_init = {
-        method: 'POST',
-        headers: img_header, 
-        body: img_body
-    }
-
-    fetch("/img", img_init)
-    .then(res=> res.json());
+    
 
 }

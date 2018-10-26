@@ -63,7 +63,6 @@ a{
 	text-align: center;
 
 }
-<<<<<<< HEAD
 #sign-admin{
 	text-align: center;
 	background-color: rgba(0,0,0,0.5);
@@ -72,10 +71,9 @@ a{
 }
 #sign-admin a{
 	text-decoration: underline;
-=======
+}
 #res{
-	color:green;
->>>>>>> ft-consume-add-menu-161364509
+	color: green;
 }
 #signup{
 	text-align: center;
@@ -88,7 +86,6 @@ a{
 
 }
 #order{
-	display: flex;
 	padding-left: 40px;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -96,6 +93,20 @@ a{
 	border-top: 1px solid red;
 	box-shadow: 10px 10px 5px red;
 	border-radius: 7px;
+	color: red;
+	font-size: 30px;
+	font-family: 'Lobster', cursive;
+
+}
+#description{
+	font-family: 'Roboto', sans-serif;
+	display: flex;
+	justify-content: space-around;
+	font-size: 20px;
+}
+#description1{
+	display: flex;
+	justify-content: space-around;
 }
 /* .rows{
 	flex-direction: row;
@@ -154,13 +165,13 @@ input{
 .row button{
 	display: table-cell;
 }
-/* form{
+form{
 	padding: 10px;
 	background-color: rgba(0,0,0,0.5);
 	margin: 50px;
 	border-radius: 10px;
 	color: white;
-}*/
+}
 #end{
 	text-align: center;
 }
