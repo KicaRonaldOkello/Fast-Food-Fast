@@ -20,17 +20,24 @@ function menu(){
     })
     .then(function(data){
         for(let i = 0, l = data.menu.length; i< l; i++){
+            var elem = document.createElement("span");
+            elem.class = "menu_id";
+            var menu_id = document.createTextNode(data.menu[i].menu_id);
+            elem.appendChild(menu_id);
             var element = document.createElement("p");
             var food = document.createTextNode(data.menu[i].food_name + " @ " + data.menu[i].price +" /=");
             element.appendChild(food);
             var input = document.createElement("input");
             input.setAttribute("type", "text");
             input.width = "3px";
+            input.addEventListener("input", function(){pick_input(this);});
             var label = document.createElement("label");
             var text = document.createTextNode(" pieces.");
             label.appendChild(text);
             var orders = document.getElementById("orders");
             var button = document.createElement("button");
+            button.value = data.menu[i].menu_id;
+            button.addEventListener("click", function(){add_order(this);});
             button.appendChild(document.createTextNode("Order"));
             var display = document.createElement("div");
             display.className = "order-display";
@@ -40,6 +47,7 @@ function menu(){
             image.src = "img/"+data.menu[i].image_name;
 
             order.appendChild(image);
+            display.appendChild(elem);
             display.appendChild(element);
             display.appendChild(input);
             display.appendChild(label);

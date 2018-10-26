@@ -9,8 +9,9 @@
 	<meta name="HandheldFriendly" content="true">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script src="js/menu.js"></script>
+	<script src="js/add_order.js"></script>
 </head>
-<body>
+<body onload="menu()">
 	<div id="heading1">
 		<h1>Fast Food Fast</h1>
 	</div>
@@ -22,27 +23,29 @@
 		</ul>
 	</div>
 	<div id="orders">
-		<div id="order">
+		<!-- <div id="order">
 			<img src="img/chicken.jpeg">
 			<div class="order-display">
+				<span class="menu_id">1</span>
 				<p>Chicken @ 3,500/=</p>
-				<input type="text" name="amount" width="3px"><label>pieces</label>
-				<button onclick="menu()">Order</button>
+				<input type="text" id="order_amount" width="3px"><label>pieces</label>
+				<button onload="menu()">Order</button>
 			</div>
 		</div>
 		<div id="order">
 			<img src="img/burger.jpg">
 			<div class="order-display">
+				<span class="menu_id">2</span>
 				<p>Burger @ 5000/=</p>
-				<input type="text" name="amount" width="3px"><label>pieces</label>
-				<button>Order</button>
+				<input type="text" oninput="pick_input(this)" width="3px"><label>pieces</label>
+				<button value="2" onclick="add_order(this)">Order</button>
 			</div>
 		</div>
 		<div id="order">
 			<img src="img/pizza.jpg">
 			<div class="order-display">
 				<p>Chicken @ 15,000/=</p>
-				<input type="text" name="amount" width="3px"><label>pieces</label>
+				<input type="text" id="order_amount" width="3px"><label>pieces</label>
 				<button>Order</button>
 			</div>
 		</div>
@@ -55,7 +58,7 @@
 			</div>
 		</div>
 
-		</div>
+		</div> -->
 	</div>
 
 </body>
