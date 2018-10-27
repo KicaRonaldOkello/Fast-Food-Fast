@@ -5,7 +5,7 @@ function add_menu (){
         'price': document.getElementById("add_price").value,
         'description': document.getElementById("descri").value
     })
-    var myurl = 'http://localhost:5000/api/v1/menu';
+    var myurl = 'https://fast-food-challenge-3.herokuapp.com/api/v1/menu';
     var myheader = {
         'Content-Type': 'application/json',
         'Authorization': sessionStorage.getItem('Token')
