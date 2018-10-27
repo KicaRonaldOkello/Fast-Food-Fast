@@ -45,7 +45,7 @@ class Validators:
     def validate_menu_input(self, order):
         match_name = re.compile(r"^[a-zA-Z0-9 ]+$")
         match_amount = re.compile(r"[0-9]+")
-        match_image_name = re.compile(r"^[a-zA-Z0-9.]+$")
+        match_description = re.compile(r"^[a-zA-Z0-9 ]+$")
         if not match_name.search(order["name"]) or not match_amount.search(
                 order["price"]) or not match_name.search(order["description"]):
             return True

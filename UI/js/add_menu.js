@@ -20,6 +20,7 @@ function add_menu (){
     .then(function(response){
         if (response.ok){
             var par = document.getElementById("res");
+            par.style.color = "green";
             var message = document.createTextNode("* Adding item to menu was successful");
             par.appendChild(message);
         }
