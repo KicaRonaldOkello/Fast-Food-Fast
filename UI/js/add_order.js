@@ -27,7 +27,13 @@ function add_order(menu_id) {
     fetch(add_order_url, init)
     .then(function(response){
         if (response.ok){
-            alert("Successful");
+            var res = document.getElementById("order-message");
+            var par = document.createElement("p");
+            par.style.color = "green";
+            par.style.fontFamily = "Impact,Charcoal,sans-serif";
+            par.style.fontSize = "20px";
+            par.appendChild(document.createTextNode("* Order has been succesfully sent"));
+            res.appendChild(par);
         }
         else{
             return response.json().then(function(data){
