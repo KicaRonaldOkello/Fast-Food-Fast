@@ -265,8 +265,15 @@ def login():
     strip = validator.strip_input(login)
 
     check_for_username = user.check_username(strip)
-    check_for_password = validator.unhash_password(check_for_username, login)
+    
 
+    if not check_for_username:
+        return jsonify({
+            "Error": "Please input correct username or password"
+        }), 401
+
+    check_for_password = validator.unhash_password(check_for_username, login)
+    
     if check_for_username and check_for_password:
         access_token = create_access_token(identity=check_for_username)
         return jsonify({"access_token": access_token, "role":check_for_username["role"]}), 200
