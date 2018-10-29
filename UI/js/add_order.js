@@ -1,7 +1,7 @@
 var x;
 function pick_input(input){
     x = input.value;
-}
+};
 
 function add_order(menu_id) {
     var v = sessionStorage.getItem('Token');

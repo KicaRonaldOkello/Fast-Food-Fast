@@ -5,7 +5,7 @@ function signup() {
         'email': document.getElementById('email').value,
         'password': document.getElementById('password').value
     });
-    var myurl = 'https://fast-food-challenge-3.herokuapp.com/v1/auth/signup';
+    var myurl = 'https://fast-food-challenge-3.herokuapp.com/api/v1/auth/signup';
 
     var myheader = {
         'Content-Type': 'application/json'
@@ -22,10 +22,7 @@ function signup() {
         return res.json();
     })
     .then(function(data){
-            console.log(data);
-            return False
-
-            if (data.access_token && data.role == 'user'){
+            if (data.access_token){
                 sessionStorage.setItem('Token', 'Bearer '+data.access_token);
                 window.location.href = 'orders.html';
             }

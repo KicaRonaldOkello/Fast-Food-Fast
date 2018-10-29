@@ -24,13 +24,13 @@ function admin_signup() {
     .then(function(data){
             console.log(data);
             if (data.access_token){
-                sessionStorage.setItem('access_token', data.access_token);
+                sessionStorage.setItem('Token','Bearer '+data.access_token);
                 window.location.href = 'admin.html';
             }
             else{
                 var par = document.getElementById("login_error");
                 par.style.color = "pink";
-                var message = document.createTextNode("*"+json.Error);
+                var message = document.createTextNode("*"+data.Error);
                 par.appendChild(message);
             }
             
