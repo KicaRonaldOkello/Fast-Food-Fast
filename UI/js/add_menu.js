@@ -32,8 +32,7 @@ function add_menu (){
             return response.json().then(function(res){
             var par = document.getElementById("res");
             par.style.color = "red";
-            var message = document.createTextNode("*"+ res.Error);
-            par.appendChild(message);
+            par.innerHTML = "*"+ res.Error;
             })
         }
     });

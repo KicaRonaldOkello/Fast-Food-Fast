@@ -29,7 +29,7 @@ function signup() {
             else{
                 var par = document.getElementById("login_error");
                 par.style.color = "pink";
-                var message = document.createTextNode("*"+data.Error);
+                par.innerHTML = "*"+data.Error;
                 par.appendChild(message);
             }
             
@@ -71,8 +71,7 @@ function login() {
             else {
                 var par = document.getElementById("login_error");
                 par.style.color = "pink";
-                var message = document.createTextNode("*"+json.Error);
-                par.appendChild(message);
+                par.innerHTML = "*"+json.Error;
             }
         });
 }

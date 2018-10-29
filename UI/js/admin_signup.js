@@ -30,8 +30,7 @@ function admin_signup() {
             else{
                 var par = document.getElementById("login_error");
                 par.style.color = "pink";
-                var message = document.createTextNode("*"+data.Error);
-                par.appendChild(message);
+                par.innerHTML = "*"+data.Error;
             }
             
         });
