@@ -24,28 +24,25 @@ validator = Validators()
 def add_order():
     """Implements the add order api."""
     current_user = get_jwt_identity()
-    missing_field = validator.validate_post_missing(request.json)
+    required_fields = ["amount", "food"]
+    missing_field = validator.validate_missing(request.json, required_fields)
     if missing_field:
-        missing = ''
-        for field in missing_field:
-            missing += field + ', '
-        return jsonify({"Error": "Missing field: " + missing}), 400
+        fields = validator.return_missing_field(missing_field)
+        return jsonify({"Error": "Missing field: " + fields}), 400
 
     order = {"amount": request.json["amount"], "food": request.json["food"]}
     instance_of_order = validator.instance_of_post(order)
     if instance_of_order:
-        int_instance = ''
-        for field in instance_of_order:
-            int_instance += field + ', '
+        wrong_strings = validator.return_missing_field(instance_of_order)
         return jsonify({
-            "Error": "Please input as strings: " + int_instance
+            "Error": "Please input as strings: " + wrong_strings
         }), 400
 
     empty_space = validator.validate_empty_space(order)
     if empty_space:
         return jsonify({"Error": "Incomplete order"}), 400
 
-    inputs = validator.validate_input(order)
+    inputs = validator.validate_input(order, required_fields)
     if inputs:
         return jsonify({
             "error":
@@ -77,27 +74,25 @@ def add_menu():
     if not current_user["role"] == "admin":
         return jsonify({"Error": "Unauthorised access"}), 401
 
-    validate_missing = validator.validate_missing_menu(request.json)
+    required_order = ["name", "price"]
+    validate_missing = validator.validate_missing(request.json, required_order)
     if validate_missing:
-        missing = ''
-        for field in validate_missing:
-            missing += field + ', '
-        return jsonify({"Error": "Missing input field:" + missing}), 400
+        fields = validator.return_missing_field(validate_missing)
+        return jsonify({"Error": "Missing input field:" + fields}), 400
+
     menu = {"name": request.json["name"], "price": request.json["price"]}
     instance_of_menu = validator.instance_of_post(menu)
     if instance_of_menu:
-        int_instance = ''
-        for field in instance_of_menu:
-            int_instance += field + ', '
+        wrong_strings = validator.return_missing_field(instance_of_menu)
         return jsonify({
-            "Error": "Please input as strings: " + int_instance
+            "Error": "Please input as strings: " + wrong_strings
         }), 400
 
     empty_space = validator.validate_empty_space(menu)
     if empty_space:
         return jsonify({"Error": "Incomplete menu item"}), 400
 
-    menu_input = validator.validate_menu_input(menu)
+    menu_input = validator.validate_input(menu, required_order)
     if menu_input:
         return jsonify({"Error": "Wrong menu name or price"}), 400
 
@@ -183,12 +178,11 @@ def update_order(orderId):
 @app.route("/api/v1/auth/signup", methods=["POST"])
 @swag_from('./docs/signup.yml')
 def create_account():
-    validate_missing = validator.validate_missing_account(request.json)
+    required_fields = ["name", "username","email","password"]
+    validate_missing = validator.validate_missing(request.json, required_fields)
     if validate_missing:
-        missing = ''
-        for field in validate_missing:
-            missing += field + ', '
-        return jsonify({"Error": "Missing input field: " + missing}), 400
+        fields = validator.return_missing_field(validate_missing)
+        return jsonify({"Error": "Missing input field: " + fields}), 400
     account = {
         "name": request.json["name"],
         "username": request.json["username"],
@@ -197,11 +191,10 @@ def create_account():
     }
     instance_of_signup = validator.instance_of_post(account)
     if instance_of_signup:
-        int_instance = ''
-        for field in instance_of_signup:
-            int_instance += field + ', '
+        wrong_strings = validator.return_missing_field(instance_of_signup)
+
         return jsonify({
-            "Error": "Please input as strings: " + int_instance
+            "Error": "Please input as strings: " + wrong_strings
         }), 400
 
     empty_space = validator.validate_empty_space(account)
@@ -234,12 +227,11 @@ def create_account():
 @app.route("/api/v1/auth/login", methods=["POST"])
 @swag_from('./docs/login.yml')
 def login():
-    validate_missing = validator.validate_missing_login(request.json)
+    required_fields = ["username","password"]
+    validate_missing = validator.validate_missing(request.json, required_fields)
     if validate_missing:
-        missing = ''
-        for field in validate_missing:
-            missing += field + ','
-        return jsonify({"Error": "Missing input field: " + missing}), 400
+        fields = validator.return_missing_field(validate_missing)
+        return jsonify({"Error": "Missing input field: " + fields}), 400
     login = {
         "username": request.json["username"],
         "password": request.json["password"]
@@ -247,11 +239,9 @@ def login():
 
     instance_of_input = validator.instance_of_post(login)
     if instance_of_input:
-        int_instance = ''
-        for field in instance_of_input:
-            int_instance += field + ', '
+        wrong_strings = validator.return_missing_field(instance_of_input)
         return jsonify({
-            "Error": "Please input as strings: " + int_instance
+            "Error": "Please input as strings: " + wrong_strings
         }), 400
 
     empty_space = validator.validate_empty_space(login)
@@ -280,12 +270,12 @@ def login():
 @app.route("/api/v1/auth/admin", methods=["POST"])
 @swag_from('./docs/signup_admin.yml')
 def add_admin():
-    missing_admin_field = validator.validate_missing_account(request.json)
+
+    required_fields = ["username","name","email","password"]
+    missing_admin_field = validator.validate_missing(request.json, required_fields)
     if missing_admin_field:
-        missing = ''
-        for field in missing_admin_field:
-            missing += field + ','
-        return jsonify({"Error": "Missing field: " + missing}), 400
+        fields = validator.return_missing_field(missing_admin_field)
+        return jsonify({"Error": "Missing field: " + fields}), 400
     account = {
         "name": request.json["name"],
         "username": request.json["username"],
@@ -294,11 +284,9 @@ def add_admin():
     }
     instance_of_account = validator.instance_of_post(account)
     if instance_of_account:
-        int_instance = ''
-        for field in instance_of_account:
-            int_instance += field + ','
+        wrong_strings = validator.return_missing_field(instance_of_account)
         return jsonify({
-            "Error": "Please input as strings: " + int_instance
+            "Error": "Please input as strings: " + wrong_strings
         }), 400
 
     empty_space = validator.validate_empty_space(account)
